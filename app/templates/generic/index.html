@@ -1,0 +1,20 @@
+{% extends 'base1.html' %}
+
+{% block title %}Bem-vindo{% endblock %}
+
+{% block content %}
+<div class="Bem-vindo">
+    <h1>Bem-vindo, {{usuario_nome}}!</h1>
+    <p>Selecione uma das opções abaixo para navegar.</p>
+</div>
+<div class="container-cards">
+    <a class="btn" href="{{ url_for('vendas.home') }}">Vendas</a> <br>
+    <a class="btn" href="{{ url_for('cad.home') }}">Cadastro/Adm</a>
+    <a class="btn" href="{{ url_for('finan.home') }}">Cobrança/Financeiro</a>
+
+</div>
+
+    
+
+
+{% endblock %}

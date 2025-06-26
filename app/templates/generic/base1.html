@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/estilos.css') }}">
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
+
+    <style>
+        .alert {
+     position: fixed; /* Fixa o alerta na tela */
+     top: 20px; /* Distância do topo */
+     left: 50%; /* Centraliza horizontalmente */
+     transform: translateX(-50%); /* Ajusta para o centro */
+     padding: 15px;
+     background-color: #4caf50; /* Verde para sucesso */
+     color: white;
+     border-radius: 5px;
+     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+     z-index: 1400; /* Garante que fique acima de outros elementos */
+     display: none; /* Oculto por padrão */
+     font-size: 16px;
+     text-align: center;
+     width: 80%; /* Largura do alerta */
+     max-width: 400px; /* Largura máxima */
+     transition: 0.5s;
+ }
+ 
+ .alert.error {
+     background-color: #f44336; /* Vermelho para erro */
+ }
+ 
+ .alert.warning {
+     background-color: #ff9800; /* Laranja para aviso */
+ }
+ 
+ .alert.info {
+     background-color: #2196f3; /* Azul para informação */
+ }
+     </style>
+ </head>
+ <body>
+     <div id="flash-message" class="alert"></div>
+ 
+     <script>
+         // Capturar mensagens flash do Flask
+         const flashMessages = {{ get_flashed_messages() | tojson }};
+         const flashContainer = document.getElementById('flash-message');
+ 
+         if (flashMessages.length > 0) {
+             // Exibir a primeira mensagem flash
+             flashContainer.textContent = flashMessages[0];
+             flashContainer.style.display = 'block';
+ 
+             // Ocultar o alerta após 5 segundos
+             setTimeout(() => {
+                 flashContainer.style.display = 'none';
+             }, 5000);
+         }
+     </script>
+ </body>
+ </html>
+     
+ </head>
+</head>
+<body>
+    <nav class="navbar">
+        <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+        <span class="menu-title">Função Atual: {% block title %}Sistema{% endblock %}</span>
+        <div class="user-info">
+            <span class="user-name"><a href="{{url_for('generic.profile')}}">Usuário:</a>{{ session['user_nome'] }}</span>
+            
+    </nav>
+
+    <div class="sidebar" id="sidebar">
+        <button class="close-btn" onclick="toggleSidebar()">✖</button>
+        
+        <h2></h2>
+        
+    <!-- vendas -->
+
+
+        <a href="#" onclick="toggleSubmenu('vendas-submenu')">Vendas</a>
+        <div class="submenu" id="vendas-submenu">
+            <a href="{{ url_for('vendas.nova_venda') }}">Nova venda</a>
+            <a href="https://servicos.receita.fazenda.gov.br/servicos/cpf/consultasituacao/consultapublica.asp" target="_blank">Verificar CPF na Receita</a>
+            <a href="https://solucoes.receita.fazenda.gov.br/servicos/cnpjreva/cnpjreva_solicitacao.asp" target="_blank">Verificar CNPJ na Receita</a>
+            <a href="{{ url_for('vendas.cpf') }}">Verificar elegibilidade de CPF</a>
+            <a href="{{ url_for('auth.redir_atent') }}">Acompanhamento de Contratos</a>
+        </div>
+        
+        <!-- cadastro -->
+        <a href="#" onclick="toggleSubmenu('cadastro-submenu')">Cadastro/Adm</a>
+        <div class="submenu" id="cadastro-submenu">
+            <a href="{{ url_for('doc_gen.gerar_documentos') }}">gerar kit</a>
+            <a href="{{ url_for('cad.acompanhar_cnt', lista='todos', filtro='sim') }}">Contratos finalizados</a>
+            <a href="{{ url_for('pdfgen.create_card') }}">criar carteirinha</a>
+            
+        </div>
+
+        <!-- cobranca e financeiro -->
+
+        <a href="#" onclick="toggleSubmenu('financeiro-submenu')">Cobrança/Financeiro</a>
+        <div class="submenu" id="financeiro-submenu">
+            <a href="{{ url_for('finan.pix') }}">Lançar Pagamento</a>
+            <a href="{{ url_for('finan.tab') }}">Conferencia de pagamento</a>
+            <a href="{{ url_for('doc_gen.processar_csv_form') }}">gerar prevencimento</a>
+            
+        </div>
+        <button class="logout-btn" onclick="window.location.href='{{ url_for('auth.logoff') }}'">Sair</button>
+    </div>
+
+    <div class="content" id="content">
+        <div id="loader" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #004d40; z-index: 9999; display: flex; justify-content: center; align-items: center;">
+            <p style="color: white; font-size: 20px;">Carregando...</p>
+        </div>
+        {% block content %}
+        <!-- Conteúdo específico será inserido aqui -->
+        {% endblock %}
+    </div>
+
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('active');
+        }
+
+        function toggleSubmenu(id) {
+            const submenu = document.getElementById(id);
+            submenu.classList.toggle('show');
+        }
+        document.addEventListener("DOMContentLoaded", function () {
+        const img = new Image();
+        img.src = "/static/images/seu-fundo.jpg"; // Substitua pelo caminho da sua imagem
+        img.onload = function () {
+            document.body.style.backgroundImage = `url('${img.src}')`;
+        };
+    });
+
+    window.addEventListener("load", function () {
+        document.getElementById("loader").style.display = "none";
+    });
+    </script>
+</body>
+</html>

@@ -1,0 +1,114 @@
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Estilo global */
+body {
+    margin: 5px;
+    padding: 5px;
+    box-sizing: border-box;
+    background-image: url('/static/image/fundo3.jpg'); /* Cor de fundo para combinar com a navbar */
+    background-color: #2a6b5c;
+    color: white; /* Cor do texto */
+    transition: background 0.3s ease-in-out; /* Transição suave */
+}
+
+/* Garantir que a navbar ocupe toda a largura */
+.navbar {
+    background-color: rgba(51, 51, 51, 0.8); /* Fundo semi-transparente */
+    color: white;
+    padding: 10px 20px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: fixed;
+    top: 0;
+    left: 0; /* Garantir que a navbar comece na borda esquerda */
+    z-index: 1050; /* A navbar tem um z-index maior que outros elementos */
+    backdrop-filter: blur(10px); /* Efeito de desfoque */
+    -webkit-backdrop-filter: blur(10px); /* Suporte para navegadores WebKit */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2); /* Linha sutil */
+}
+
+/* Garantir que o conteúdo abaixo da navbar não fique escondido */
+main {
+    margin-top: 60px; /* Espaço para compensar a altura da navbar */
+    padding: 20px;
+}
+
+/* Ajustar o botão do menu */
+.menu-toggle {
+    font-size: 24px;
+    cursor: pointer;
+    background: none;
+    border: none;
+    color: white;
+}
+
+/* Ajustar tabelas para exibição correta */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+th, td {
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 8px;
+    text-align: left;
+}
+
+th {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: white;
+}
+
+td {
+    background-color: rgba(255, 255, 255, 0.05);
+    color: white;
+}
+.btn{
+    background-color: #369273; /* Cor de fundo do botão */
+    color: white; /* Cor do texto do botão */
+    padding: 10px 20px; /* Espaçamento interno do botão */
+    border: none; /* Sem borda */
+    border-radius: 5px; /* Bordas arredondadas */
+    cursor: pointer; /* Cursor de ponteiro ao passar o mouse */
+    transition: 0.3s ease; /* Transição suave para a cor de fundo */
+}
+
+.btn:hover {
+    background-color: #2a6b5c; /* Cor de fundo ao passar o mouse */
+    transform: scale(1.05); /* Aumenta o tamanho do botão ao passar o mouse */
+}
+
+.btn-cancela{
+    background-color: #fc6060; /* Cor de fundo do botão */
+    color: white; /* Cor do texto do botão */
+    padding: 10px 20px; /* Espaçamento interno do botão */
+    border: none; /* Sem borda */
+    border-radius: 5px; /* Bordas arredondadas */
+    cursor: pointer; /* Cursor de ponteiro ao passar o mouse */
+    transition: background-color 0.3s ease; /* Transição suave para a cor de fundo */
+    text-decoration: none;
+    transition: 0.3s ease;
+    
+}
+
+.btn-cancela:hover {
+    background-color: #fc6060; /* Cor de fundo ao passar o mouse */
+    transform: scale(1.05); /* Aumenta o tamanho do botão ao passar o mouse */
+}
+
+p {
+    font-size: large;
+}
+a {
+    color: white; /* Cor do link */
+    
+    font-size: large; /* Tamanho da fonte do link */
+}

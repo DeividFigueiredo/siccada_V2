@@ -1,0 +1,54 @@
+{% extends 'base1.html' %}
+
+{% block title %}Filtragem de pagamento{% endblock %}
+
+{% block content %}
+
+
+<div class="container">
+    <div class="divisoria2">
+        <div class="close-btn-container">
+            <a href="{{ url_for('generic.home') }}" class="close-btn">✖</a>
+        </div>
+        <h1>
+            Filtragem de Pagamentos
+        </h1>
+
+        <br><br>
+
+<form method="POST" action="{{ url_for('finan.definir') }}">
+    <label for="data_inicio">Data de Início:</label>
+    <input type="date" id="data_inicio" name="data_inicio">
+
+    <label for="data_fim">Data de Fim:</label>
+    <input type="date" id="data_fim" name="data_fim">
+
+    <label for="metodo_pagamento">Método de Pagamento:</label>
+    <select id="metodo_pagamento" name="metodo_pagamento">
+        <option value="">Todos</option> <!-- Opção de não filtrar por pagamento -->
+        <option value="cartao">Cartão</option>
+        <option value="boleto">Boleto</option>
+        <option value="PIX">Pix</option>
+    </select>
+
+    <label for="tipo_lancamento">Tipo de lançamento</label>
+    <select name="tipo_lancamento" id="tipo_lancamento">
+        <option value="">Todos</option> <!-- Opção de não filtrar por tipo de lançamento -->
+        <option value="adesao">Adesão</option>
+        <option value="mensalidade">Mensalidade</option>
+
+    </select>
+
+    <label for="status">Status:</label>
+    <select id="status" name="status">
+        <option value="">Todos</option> <!-- Opção de não filtrar por status -->
+        <option value="efetuado">Efetuado</option>
+        <option value="baixado">Baixado</option>
+        <option value="cancelado">Cancelado</option>
+    </select>
+    <br><br>
+    <button class="btn" type="submit">Filtrar</button>
+</form>
+    </div>
+</div>  
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends 'base1.html' %}
+
+{% block title %}Bem-vindo{% endblock %}
+
+{% block content %}
+<br><br><br>
+<body class="body">
+    <h1>Venda registrada</h1>
+    <h3>Venda registrada no banco de dados.</h3>
+
+    <a href=" {{ url_for('finan.pix', desc= 'adesao') }} "><strong>Lançar pagamento</strong></a>
+
+</body>
+
+
+{% endblock %}

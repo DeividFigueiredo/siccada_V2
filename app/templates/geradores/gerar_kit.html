@@ -1,0 +1,51 @@
+{% extends 'base1.html' %}
+
+{% block title %}Gerar Kit{% endblock %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerar Kit</title>
+</head>
+<body>
+    <div class="container">
+    <div class="divisoria2">
+        
+        <div class="close-btn-container">
+            <a href="{{ url_for('generic.home') }}" class="close-btn">✖</a>
+        </div>
+    <h1>Gerar Kit</h1>
+
+    <div>
+        <!-- Configurando o formulário para enviar dados ao backend -->
+        <form action="{{ url_for('doc_gen.gerar_documentos') }}" method="POST">
+            <!-- Campo para o nome do plano -->
+            <label for= "plano_nome">Nome do plano</label><br>
+            <select id="plano_nome" name="plano_nome" required>
+                <option value="AMACOR EXCLUSIVO I">Exclusivo I</option>
+                <option value="AMACOR EXCLUSIVO II">Exclusivo II </option>
+                <option value="AMACOR EXCLUSIVO II EMPRESARIAL">Exclusivo II Empresarial</option>
+                <option value="AMACOR CLASSICO EMPRESARIAL">Classico Empresarial</option>
+            </select>
+
+            <!-- Campo para o nome do responsável -->
+            <label for="nome_responsavel">Nome do Responsável:</label>
+            <input type="text" id="nome_responsavel" name="nome_responsavel" required>            
+
+            <!-- Campo para a data do contrato -->
+            <label for="data_contrato">Data do Contrato:</label>
+            <input type="date" id="data_contrato" name="data_contrato" required>
+
+            <!-- Campo para o número do contrato -->
+            <label for="numero_contrato">Número do Contrato:</label>
+            <input type="text" id="numero_contrato" name="numero_contrato" required>
+
+            <!-- Botão para enviar o formulário -->
+            <button class="btn" type="submit">Gerar Documento</button>
+        </form>
+    </div>
+    
+</html>
+{% endblock %}

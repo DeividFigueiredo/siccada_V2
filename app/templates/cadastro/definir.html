@@ -1,0 +1,30 @@
+{% extends 'base1.html' %}
+
+{% block title %}Filtragem de pagamento{% endblock %}
+
+{% block content %}
+
+
+<div class="container">
+    <div class="divisoria2">
+        <div class="close-btn-container">
+            <a href="{{ url_for('generic.home') }}" class="close-btn">✖</a>
+        </div>
+        <h1>
+            Filtragem de Contratos
+        </h1>
+
+        <br><br>
+
+        <form method="GET" action="{{ url_for('cad.acompanhar_cnt') }}">
+            <label for="data_inicio">Data de Início:</label>
+            <input type="date" id="data_inicio" name="venda_inicial">
+        
+            <label for="data_fim">Data de Fim:</label>
+            <input type="date" id="data_fim" name="venda_final">
+        
+            <button type="submit">Redirecionar</button>
+        </form>
+    </div>
+</div>  
+{% endblock %}

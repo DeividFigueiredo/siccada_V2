@@ -1,0 +1,171 @@
+/* Ajuste para evitar que o conteúdo fique atrás da navbar */
+.container-tab-pix {
+    max-width: auto;
+    margin: auto;
+    padding: 120px 20px 20px; /* Adiciona espaçamento superior para compensar a navbar */
+    background-color: #2d2d2d; /* Fundo escuro */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra sutil */
+    color: #f9f9f9; /* Cor do texto para contraste */
+}
+
+.container-tab-pix2{
+    display: flex;
+    justify-content: center;
+    max-width: auto;
+    margin: 0 auto;
+    padding: 120px 20px 20px; /* Adiciona espaçamento superior para compensar a navbar */
+    background-color: #2d2d2d; /* Fundo escuro */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra sutil */
+    color: #f9f9f9; /* Cor do texto para contraste */
+}
+
+
+/* Filtro de status */
+.filter-tab-pix {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.filter-tab-pix2{
+    display: absolute;
+    position: absolute;
+    align-items: right;
+    right: 23%;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.filter-tab-pix label {
+    font-weight: bold;
+    color: #f9f9f9; /* Cor do texto para contraste */
+}
+
+.filter-tab-pix select {
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    outline: none;
+    transition: border-color 0.3s ease;
+    background-color: #444; /* Fundo escuro */
+    color: #f9f9f9; /* Cor do texto */
+}
+
+.filter-tab-pix select:focus {
+    border-color: #007bff;
+}
+
+/* Título da tabela */
+.table-title-tab-pix {
+    text-align: center;
+    margin-bottom: 20px;
+    
+    font-size: 24px;
+    color: #ffffff; /* Cor do texto */
+}
+
+/* Tabela */
+.table-container-tab-pix {
+    overflow-x: auto; /* Permite rolagem horizontal em telas menores */
+    background-color: #2d2d2d; /* Fundo escuro do contêiner */
+    padding: 10px; /* Espaçamento interno */
+    border-radius: 8px; /* Bordas arredondadas */
+}
+
+.table-tab-pix {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    background-color: #3a3a3a; /* Fundo escuro da tabela */
+    color: #f9f9f9; /* Cor do texto */
+}
+
+.table-tab-pix th, .table-tab-pix td {
+    padding: 10px;
+    text-align: left;
+    border: 1px solid #555; /* Bordas com tom escuro */
+}
+
+.table-tab-pix th {
+    background-color: #444; /* Fundo mais escuro para o cabeçalho */
+    font-weight: bold;
+}
+
+.table-tab-pix tr:nth-child(even) {
+    background-color: #3a3a3a; /* Fundo alternado para linhas pares */
+}
+
+.table-tab-pix tr:nth-child(odd) {
+    background-color: #2d2d2d; /* Fundo alternado para linhas ímpares */
+}
+
+/* Links de status */
+.status-green {
+    color: #28a745;
+    font-weight: bold;
+}
+
+.status-red {
+    color: #dc3545;
+    font-weight: bold;
+}
+
+.status-yellow {
+    color: #ffc107;
+    font-weight: bold;
+}
+
+/* Botões de ação */
+.action-buttons-tab-pix {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.btn-tab-pix {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #369273;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.btn-tab-pix:hover {
+    background-color: #026852;
+    scale: 1.05; /* Aumenta o tamanho do botão ao passar o mouse */
+}
+
+.a{
+    text-decoration: none;
+    color: #f9f9f9; /* Cor do texto */
+}
+
+/* Botão de fechar */
+.close-btn-container {
+    position: flex;
+    top: 10px;
+    right: 10px;
+}
+
+.close-btn {
+    text-decoration: none;
+    font-size: 20px;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 50%;
+    font-weight: bold;
+    
+    transition: background-color 0.3s ease;
+}
+
+.close-btn:hover {
+    background-color: #c82333; /* Cor de fundo ao passar o mouse */
+    color: white;
+}

@@ -1,0 +1,68 @@
+app/routes/uploads/*
+
+# ----------------------------------------
+# Arquivos Python
+# ----------------------------------------
+*.pyc
+*.pyo
+*.pyd
+__pycache__/
+*.sqlite3
+*.db
+
+# ----------------------------------------
+# Ambientes virtuais
+# ----------------------------------------
+venv/
+env/
+.venv/
+.env/
+.Python
+
+# ----------------------------------------
+# Configurações de IDEs/editores
+# ----------------------------------------
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# ----------------------------------------
+# Arquivos do sistema
+# ----------------------------------------
+.DS_Store
+Thumbs.db
+ehthumbs.db
+*.log
+
+# ----------------------------------------
+# Pasta de uploads do seu projeto
+# ----------------------------------------
+app/routes/uploads/*
+!app/routes/uploads/.gitkeep
+static/uploads_gen_arch/*
+static/uploads_gen_arch/**/*
+# ----------------------------------------
+# Arquivos sensíveis e de configuração
+# ----------------------------------------
+.env
+*.secret
+*.key
+*.pem
+*.crt
+
+# ----------------------------------------
+# Arquivos temporários e caches
+# ----------------------------------------
+*.bak
+*.swp
+*.tmp
+*.~backup
+*.tar.gz
+*.zip
+*.rar
+.cache/
+coverage/
+dist/
+build/
+*.egg-info/

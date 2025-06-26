@@ -1,0 +1,74 @@
+{% extends 'base1.html' %}
+
+{% block title %}Gerador de carteirinhas{% endblock %}
+
+{% block content %}
+
+
+    <div class="divisoria3">
+        <h1>Calcular Acordo</h1>
+        {% if error %}
+            <p style="color: red;">{{ error }}</p>
+        {% endif %}
+    
+        <form method="POST" action="/finan/calculo_acordo" onsubmit="formatarCampos()">
+            <label for="em_aberto">Mensalidades em Aberto:</label>
+            <input type="text" id="em_aberto" name="em_aberto" required><br><br>
+    
+            <div id="mensalidades-container">
+                <!-- Valores das mensalidades adicionados dinamicamente -->
+            </div>
+    
+            <button class="botao" type="button" onclick="adicionarMensalidades()">Adicionar Mensalidades</button><br><br>
+    
+            <label for="desconto">Desconto (%):</label>
+            <input type="text" id="desconto" name="desconto" value="0" step="0.01"><br><br>
+    
+            <label for="parcelas">Parcelas:</label>
+            <input type="text" id="parcelas" name="parcelas" value="1" min="1" max="8"><br><br>
+    
+            <button class="botao" type="submit">Calcular</button>
+        </form>
+    
+        {% if valor_total %}
+            <h2>Resultado</h2>
+            <p>Valor Total: R$ {{ valor_total }}</p>
+            <p>Valor com Desconto: R$ {{ valor_com_desconto }}</p>
+            <p>Parcelas: {{ parcelas }}</p>
+            <p>Valor por Parcela: R$ {{ valor_parcela }}</p>
+        {% endif %}
+    
+        <script>
+            function adicionarMensalidades() {
+                const emAberto = document.getElementById('em_aberto').value;
+                const container = document.getElementById('mensalidades-container');
+                container.innerHTML = ''; // Limpa os campos anteriores
+    
+                for (let i = 1; i <= emAberto; i++) {
+                    const label = document.createElement('label');
+                    label.innerHTML = `Valor da Mensalidade ${i}: `;
+    
+                    const input = document.createElement('input');
+                    input.type = 'text';
+                    input.name = 'valores_mensalidades';
+                    input.required = true;
+    
+                    container.appendChild(label);
+                    container.appendChild(input);
+                    container.appendChild(document.createElement('br'));
+                }
+            }
+    
+            function formatarCampos() {
+                // Converte todos os campos numéricos com vírgula para ponto
+                const campos = document.querySelectorAll('input[type="text"]');
+                campos.forEach(campo => {
+                    campo.value = campo.value.replace(',', '.');
+                });
+            }
+        </script>
+    </div>
+    
+    {% endblock %}
+    
+  

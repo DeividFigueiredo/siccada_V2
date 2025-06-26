@@ -1,0 +1,114 @@
+{% extends 'base1.html' %}
+
+<style>
+    .divisoria2 {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh; /* Altura total da janela */
+        background-color: #004d40; /* Cor de fundo opcional */
+    }
+
+    .payment-form {
+        background-color: #ffffff; /* Fundo branco para o formulário */
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        width: 100%;
+        max-width: 500px; /* Largura máxima do formulário */
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    .btn {
+        width: 100%;
+        padding: 10px;
+        background-color: #00796b;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    .btn:hover {
+        background-color: #004d40;
+    }
+</style>
+
+{% block title %}Lançamento de Pagamento{% endblock %}
+
+{% block content %}
+
+<div class="container-tab-pix2" style="margin: auto; width: 100%; max-width: 700px;">
+    <div class="divisoria2">
+        
+        <div class="close-btn-container">
+            <a href="{{ url_for('generic.home') }}" class="close-btn">✖</a>
+        </div>
+        <h1>Lançamento de Pagamento</h1>
+        <form method="POST" action="{{ url_for('finan.pix') }}" class="payment-form">
+            <div class="form-group">
+                <label for="ncontrato">Contrato:</label>
+                <input type="text" id="ncontrato" name="ncontrato" required>
+            </div>
+
+            <div class="form-group">
+                <label for="nresponsavel">Responsável:</label>
+                <input type="text" id="nresponsavel" name="nresponsavel" required>
+            </div>
+
+            <div class="form-group">
+                <label for="valor">Valor:</label>
+                <input type="number" step="0.01" id="valor" name="valor" required>
+            </div>
+
+            <div class="form-group">
+                <label for="data_pagamento">Data de pagamento:</label>
+                <input type="date" id="data_pagamento" name="data_pagamento" required>
+            </div>
+
+            <div class="form-group">
+                <label for="data_vencimento">Data de vencimento:</label>
+                <input type="date" id="data_vencimento" name="data_vencimento" required>
+
+            <div class="form-group">
+                <label for="descricao">Descrição do pagamento:</label>
+                <input type="text" id="descricao" name="descricao">
+            </div>
+
+            <div class="form-group">
+                <label for="tipo_lancamento">Tipo de lançamento:</label>
+                <select id="tipo_lancamento" name="tipo_lancamento" required>
+                    <option value="mensalidade">pagamento de mensalidade</option>
+                    <option value="adesao">pagamento de adesão</option>
+                    </select>
+            </div>
+
+            <div class="form-group">
+                <label for="metodo_pg">Método de pagamento:</label>
+                <select id="metodo_pg" name="metodo_pg" required>
+                    <option value="PIX">PIX</option>
+                    <option value="boleto">Boleto</option>
+                    <option value="cartao de credito">Carão de Crédito</option>
+                    <option value="cartao de debito">Débito</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="status">Status de pagamento:</label>
+                <select id="status" name="status" required>
+                    <option value="efetuado">Efetuado</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <p>Enviar comprovante no <a href="https://zimbramail.penso.com.br/#2" target="_blank">e-mail pelo Zimbra</a></p>
+            </div>
+
+            <button class="btn" type="submit">Cadastrar</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

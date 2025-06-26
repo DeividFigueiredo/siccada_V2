@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/estilos_login.css') }}">
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
+
+    <title>SICCADA - Login</title>
+
+    <style>
+       .alert {
+    position: fixed; /* Fixa o alerta na tela */
+    top: 20px; /* Distância do topo */
+    left: 50%; /* Centraliza horizontalmente */
+    transform: translateX(-50%); /* Ajusta para o centro */
+    padding: 15px;
+    background-color: #4caf50; /* Verde para sucesso */
+    color: white;
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 1000; /* Garante que fique acima de outros elementos */
+    display: none; /* Oculto por padrão */
+    font-size: 16px;
+    text-align: center;
+    width: 80%; /* Largura do alerta */
+    max-width: 400px; /* Largura máxima */
+}
+
+.alert.error {
+    background-color: #f44336; /* Vermelho para erro */
+}
+
+.alert.warning {
+    background-color: #ff9800; /* Laranja para aviso */
+}
+
+.alert.info {
+    background-color: #2196f3; /* Azul para informação */
+}
+    </style>
+</head>
+<body>
+    <div id="flash-message" class="alert"></div>
+
+    <script>
+        // Capturar mensagens flash do Flask
+        const flashMessages = {{ get_flashed_messages() | tojson }};
+        const flashContainer = document.getElementById('flash-message');
+
+        if (flashMessages.length > 0) {
+            // Exibir a primeira mensagem flash
+            flashContainer.textContent = flashMessages[0];
+            flashContainer.style.display = 'block';
+
+            // Ocultar o alerta após 5 segundos
+            setTimeout(() => {
+                flashContainer.style.display = 'none';
+            }, 5000);
+        }
+    </script>
+</body>
+</html>
+    
+</head>
+<body class="login-body">,
+    <div class="divisoria">
+        <h1>Siccada</h1>
+        <h2>Login</h2>
+        <form action="{{ url_for('auth.login') }}" method="POST">
+            <br><label for="email">Email:</label>
+            <input type="email" id="email" name="email" required><br><br>
+
+            <label for="senha">Senha:</label>
+            <input type="password" id="senha" name="senha" required><br><br>
+            <input type="submit" class="envia" value="Login">
+  
+    </div>
+</body>
+</html>
+</html>

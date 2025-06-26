@@ -1,0 +1,23 @@
+<div class="divisoria3">
+    <h1>Gerar arquivo para cobrança</h1>
+    
+    <div>
+        <h3>gerar faixas de prevencimento</h3>
+        <form action="{{ url_for('doc_gen.processar_dados') }}" method="POST" enctype="multipart/form-data">
+            <label class="info" for="prevencimento_file">Selecione o arquivo de prevencimento:</label>
+            <input class="info" type="file" name="prevencimento_file" required><br><br>
+            <button class="btn" type="submit">Gerar CSV</button>
+        </form>
+    </div>
+
+    <br>
+
+    <div>
+        <h3>gerar documento de cobrança</h3>
+        <form action=" " method="POST" enctype="multipart/form-data">
+            <label class="info" for="cobranca_file">Selecione o arquivo de cobrança:</label>
+            <input class="info" type="file" name="cobranca_file" required><br><br>
+            <button class="btn" type="submit">GERAR CSV</button>
+        </form>
+    </div>
+</div>

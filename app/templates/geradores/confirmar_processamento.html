@@ -1,0 +1,20 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirmação de Processamento</title>
+</head>
+<body>
+    <h1>Processamento Concluído!</h1>
+    <p>O arquivo foi processado com sucesso.</p>
+    <form action="{{ url_for('doc_gen.dividir_csv') }}" method="POST">
+        <button type="submit">Dividir Arquivo</button>
+    </form>
+</body>
+</html>
+
+{% block content %}
+{% endblock %}

@@ -1,0 +1,280 @@
+.botao {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: bold;
+    color: white;
+    background-color: #007BFF; /* Azul padrão, você pode alterar */
+    border-radius: 5px;
+    text-decoration: none; /* Remove o sublinhado */
+    transition: background-color 0.3s ease;
+}
+
+.botao:hover {
+    background-color: #0056b3; /* Cor mais escura ao passar o mouse */
+}
+
+h1 {
+    color: #333;
+    font-size: 2.5em;
+    margin: 10px 0;
+}
+
+h2 {
+    color: #666;
+    font-size: 1.2em;
+    margin-bottom: 20px;
+}
+
+/* Centralizar o conteúdo da página */
+.login-body {
+    display: flex;
+    justify-content: justify;
+    align-items: justify;
+    height: 100vh;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-image: radial-gradient(rgb(11, 112, 26), #00070e);
+}
+
+/* Estilo da caixa de login */
+.divisoria {
+    background-color: #26302b94;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 300px;
+}
+
+.divisoria3 {
+    background-color: #26302bd3;
+    position: flex;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 600px;
+}
+
+.divisoria2 label{
+    color: white;
+}
+
+.divisoria4{
+    position: relative;
+    ;
+}
+
+.prince{
+    color: white;
+    font-size: 32px;
+}
+
+.divisoria2 {
+    position: center;
+    background-color: #26302bd3;
+    padding: 40px;
+    margin-top: 40px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: auto;
+    backdrop-filter: blur(5px); /* Efeito de desfoque */
+    -webkit-backdrop-filter: blur(10px); /* Suporte para navegadores WebKit */
+}
+
+.divisoria3 label{
+    color: white;
+}
+
+.divisoria3 h1{
+    font-size: 32px;
+    color: #fdfdfd;
+    margin-bottom: 20px;
+}
+
+.divisoria3 h3{
+    color: #fdfdfd;
+    margin-bottom: 20px;
+}
+.divisoria3 p{
+    color: #fdfdfd;
+    margin-bottom: 20px;
+}
+
+.divisoria2 h1{
+    font-size: 24px;
+    color: #fdfdfd;
+    margin-bottom: 20px;
+}
+
+
+/* Estilo do título */
+.divisoria h1 {
+    font-size: 32px;
+    color: #fdfdfd;
+    margin-bottom: -19px;
+}
+
+.divisoria p {
+    font-size: 10;
+    color: #fdfdfd;
+    margin-bottom: 20px;
+}
+
+.divisoria h2{
+    position: relative;
+    margin-right: 260px;
+    margin-top: 32px;
+    color: rgba(255, 255, 255, 0.719);
+}
+/* Estilo dos rótulos e campos de entrada */
+label {
+    font-size: 14px;
+    color: #ffffff;
+    margin-bottom: 5px;
+    display: block;
+    text-align: left;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+    width: 100%;
+    padding: 5px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+select{
+    width: auto;
+    border-radius: 4px;
+    box-sizing: border-box;
+    padding: 5px;
+}
+
+/* Estilo do botão de envio */
+.envia {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    background-color: rgb(5, 79, 15);
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.envia2 {
+    width: 70%;
+    padding: 12px;
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 10px;
+    bottom: 7px;
+    color: #fff;
+    background-color: rgb(5, 79, 15);
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.envia:hover {
+    background-color: #19611c;
+}
+
+
+.corpo_padrao{
+    font-family: Arial, sans-serif;
+    background-color: #d0e9ff;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: top;
+    height: 100vh;
+}
+a{
+    color: #d6d6d6;
+    
+}
+
+a:hover{
+    color:#378039;
+}
+
+.voltar{
+    position: absolute;
+    position: left;
+    width: 10%;
+    padding: 12px;
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 10px;
+    bottom: 7px;
+    color: #fff;
+    background-color: rgb(5, 79, 15);
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.table {
+    width: 100%; /* Faz a tabela ocupar toda a largura disponível */
+    border-collapse: collapse; /* Remove espaços entre bordas */
+    background: #fff; /* Fundo branco para contraste */
+    color: #333;
+}
+
+.table th, .table td {
+    padding: 10px;
+    text-align: left;
+    border: 1px solid #ddd; /* Bordas da tabela */
+}
+
+.table th {
+    background: #555;
+    color: #fff;
+}
+
+.redtab {
+    color: red; /* Cor vermelha para outros status */
+    text-decoration: none;
+}
+
+.redtab:hover {
+    text-decoration: underline;
+}
+
+.yellow-text {
+    color: rgb(190, 190, 2); /* Cor vermelha para outros status */
+    text-decoration: none;
+}
+
+.yellow-text:hover {
+    text-decoration: underline;
+}
+
+.table-container {
+    overflow-x: auto; /* Habilita o scroll horizontal se necessário */
+    padding: 20px; /* Espaçamento ao redor da tabela */
+}
+
+.green-text {
+    color: green; /* Cor verde para status baixado */
+    font-weight: bold; /* (opcional) Deixa o texto em negrito */
+    text-decoration: none;
+}
+.green-text:hover {
+    text-decoration: underline; /* (opcional) Sublinhar ao passar o mouse */
+}

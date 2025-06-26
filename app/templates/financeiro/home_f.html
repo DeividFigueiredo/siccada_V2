@@ -1,0 +1,21 @@
+{% extends 'base1.html' %}
+
+{% block title %}Bem-vindo{% endblock %}
+
+{% block content %}
+<div class="container-cards">
+    <a class="btn" href="{{ url_for('finan.alter') }}">Conferencia de pagamento</a> <br>
+    <a class="btn" href="{{ url_for('finan.pix') }}">Lançar pagamento</a>
+    <a class="btn" href="{{ url_for('finan.calculo_acordo') }}">calculo de acordo</a>
+    <a class="btn" href="{{ url_for('doc_gen.processar_csv_form') }}">confecção de cobranca</a>
+
+    <br><br>
+    
+</div>
+<div class="welcome">
+
+    <a class="btn" href="{{ url_for('generic.home')}}">Voltar</a>
+    
+
+
+{% endblock %}

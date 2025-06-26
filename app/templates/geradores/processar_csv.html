@@ -1,0 +1,38 @@
+{% extends 'base1.html' %}
+
+{% block title %}Gerador de documentos{% endblock %}
+
+{% block content %}
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/estilos.css') }}">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Processar Arquivo CSV</title>
+</head>
+<body>
+    <div class="container">
+        <div class="divisoria2">
+                <div class="close-btn-container">
+                    <a class="close-btn" href="{{ url_for('generic.home') }}">X</a>
+                </div>
+            <h1>Processar Arquivo CSV</h1>
+            <h2>Upload de Arquivo</h2>
+           
+            <form action="{{ url_for('doc_gen.processar_csv') }}" method="POST" enctype="multipart/form-data">
+                <label for="arquivo_csv">Selecione o arquivo (.csv):</label>
+                <br>
+                <input type="file" name="arquivo_csv" id="arquivo_csv" required>
+                <br><br>
+                <button class="btn" type="submit">Enviar</button>
+            </form>
+    </div>
+</div>
+</body>
+</html>
+
+    
+    {% endblock %}
+    

@@ -1,0 +1,22 @@
+{% extends 'base1.html' %}
+
+{% block title %}Gerador de documentos{% endblock %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirmação de Envio</title>
+</head>
+<body>
+    <h1>Arquivo enviado com sucesso!</h1>
+    <p>O arquivo foi enviado e está pronto para ser processado.</p>
+    <form action="{{ url_for('doc_gen.processar_csv') }}" method="POST">
+        <button type="submit">Iniciar Processamento</button>
+    </form>
+</body>
+</html>
+
+{% endblock %}

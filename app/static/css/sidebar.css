@@ -1,0 +1,80 @@
+.sidebar {
+    width: 275px;
+    background-color: #333;
+    color: white;
+    backdrop-filter: blur(10px); /* Efeito de desfoque */
+    -webkit-backdrop-filter: blur(10px); /* Suporte para navegadores WebKit */
+    height: 100%; /* Garante que a barra lateral ocupe toda a altura da tela */
+    position: fixed; /* Fixa a barra lateral na tela */
+    top: 0; /* Começa no topo da tela */
+    left: -275px; /* Oculta a barra lateral inicialmente */
+    padding: 20px;
+    z-index: 1100; /* Garante que a barra lateral fique acima da navbar */
+    overflow-y: auto; /* Permite rolagem se o conteúdo for maior que a altura */
+    transition: left 0.3s ease; /* Animação suave ao abrir/fechar */
+    box-shadow:  0 0 10px rgba(0, 0, 0, 0.5); /* Sombra interna para profundidade */
+}
+
+.sidebar.active {
+    left: 0; /* Mostra a barra lateral */
+}
+
+.sidebar .close-btn {
+    font-size: 20px;
+    color: white;
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.sidebar a {
+    color: white;
+    text-decoration: none;
+    padding: 10px 15px;
+    margin: 5px 0;
+    display: block;
+    font-size: 24px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.sidebar a:hover {
+    background-color: #575757;
+}
+
+.sidebar .submenu {
+    display: none; /* Submenus ocultos por padrão */
+    margin-left: 15px;
+    margin-bottom: 2px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.sidebar .submenu a {
+    font-size: 14px;
+}
+
+.sidebar .submenu.show {
+    display: block; /* Torna o submenu visível */
+    transition: all 0.3s ease;
+}
+
+.sidebar .logout-btn {
+    position: absolute; /* Fixa o botão na parte inferior da barra lateral */
+    bottom: 20px; /* Espaçamento da parte inferior */
+    left: 20px; /* Espaçamento da lateral esquerda */
+    width: calc(100% - 40px); /* Ajusta o tamanho do botão */
+    background-color: #ff4d4d;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+.sidebar .logout-btn:hover {
+    background-color: #ff1a1a;
+}

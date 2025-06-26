@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resultado da Pesquisa</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/estilos.css') }}">
+</head>
+<body class="body">
+    <div class="divisoria4">
+        <h1>Resultado da Consulta</h1>
+        {% if result %}
+            <div class="result">
+                <p><strong>Nome:</strong> {{ result[19] }}</p> <!-- Exemplo de nome, adapte conforme os dados do seu banco -->
+                <p><strong>CPF:</strong> {{ cpf }}</p>                
+                <p><strong>Data de Nascimento:</strong> {{ result[22] }}</p>
+                <p><strong>Plano:</strong> {{ result[28] }}</p> <!-- Exemplo de plano -->
+                <p><strong>Motivo de Cancelamento: </strong">{{'ativo' if result[25] == None else result [25]}}</p>
+                <p><strong>Data de cancelamento: </strong>{{'ativo' if result[27] == None else result [27]}}</p>
+                        <br>
+                <p>Para mais informações sobre débito clique <a href="{{ url_for('vendas.saldos',campo_result=result[4]) }}">aqui.</a></p>
+            </div>
+        {% else %}
+            <div class="error">CPF não encontrado no banco de dados.</div>
+        {% endif %}
+        <a href="{{ url_for('vendas.cpf') }}" class="btn">Voltar</a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,25 @@
+{% extends 'base1.html' %}
+
+{% block title %}Bem-vindo{% endblock %}
+
+{% block content %}
+<body class="body">
+    <br><br>
+    <h1>Não autorizado</h1>
+    <h3>Você não possui autorização para acessar essa página, por favor <a href="javascript:void(0);" onclick="goBack()"><strong>retorne.</strong></a></h3>
+
+</body>
+
+<script>
+    function goBack() {
+        if (document.referrer) {
+            // Voltar para a página anterior
+            window.history.back();
+        } else {
+            // Redirecionar para a home se não houver página anterior
+            window.location.href = '/';
+        }
+    }
+</script>
+
+{% endblock %}

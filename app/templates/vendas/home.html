@@ -1,0 +1,19 @@
+{% extends 'base1.html' %}
+
+{% block title %}Vendas{% endblock %}
+
+{% block content %}
+<div class="container-cards">
+    <a class="btn" href="{{ url_for('vendas.cpf') }}">consultar cpf</a> <br>
+    <a class="btn" href="https://servicos.receita.fazenda.gov.br/servicos/cpf/consultasituacao/consultapublica.asp" target="_blank">validar cpf na receita</a> <br>
+    <a class="btn" href="https://solucoes.receita.fazenda.gov.br/servicos/cnpjreva/cnpjreva_solicitacao.asp" target="_blank">validar cnpj na receita</a>
+    <a class="btn" href="{{ url_for('vendas.nova_venda') }}" target="_blank">nova proposta</a>
+
+
+</div>
+<div class="welcome">
+        
+    <a href="{{ url_for('generic.home') }}" class="btn">Voltar</a>
+
+
+{% endblock %}

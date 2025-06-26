@@ -1,0 +1,62 @@
+{% extends "base1.html" %}
+{% block title %}Alterar Cadastro{% endblock %}
+{% block content %}
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+        <!-- Botão de fechar -->
+       
+            <div class="divisoria2">
+                 <div class="close-btn-container">
+            <a class="close-btn" href="javascript:void(0);" onclick="goBack()" class="close-btn"><<</a>
+        </div>
+        <h1>Proposta {{proposta}}</h1>
+        <h3 hidden>id: {{id}}</h3>
+
+        <div>
+            <h2>Adicionar numero de contrato à proposta</h2>
+        </div>
+    
+       
+        <form method="POST" action="{{ url_for('cad.gravar_alteracao',id=id) }}">
+            <label for="status">atribuir contrato:</label>
+            <input type="text" id="status" name="status" placeholder="digite o número do contrato" required>
+            <input type="hidden" name="info" value="numero_contrato">    
+            <button class="btn" type="submit">alterar</button>
+        </div>
+
+            
+
+        </div>
+        </form>
+
+
+    </div>
+    
+</body>
+<script>
+    function goBack() {
+        if (document.referrer) {
+            // Voltar para a página anterior
+            window.history.back();
+        } else {
+            // Redirecionar para a home se não houver página anterior
+            window.location.href = '/';
+        }
+    }
+</script>
+</html>
+
+{% endblock %}
+
+    
+

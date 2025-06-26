@@ -1,0 +1,57 @@
+{% extends 'base1.html' %}
+
+{% block title %}resultado de busca{% endblock %}
+
+{% block content %}
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/tabpix.css') }}">
+
+<div class="container-tab-pix">
+    <!-- Botão de fechar -->
+    <div class="filter-tab-pix2">
+        <a class="close-btn" href="{{ url_for('generic.home') }}" class="close-btn">✖</a>
+    </div>
+    
+     
+    
+    
+
+    <!-- Título da tabela -->
+    <h1 class="table-title-tab-pix">Retorno de pesquisa</h1>
+    {% if result %}
+
+    <!-- Tabela de pagamentos -->
+    <div class="table-container-tab-pix">
+        <table class="table-tab-pix">
+            <thead>
+                <tr>
+                    <th>Contrato</th>
+                    <th>Responsável</th>
+                    <th>Nome do Beneficiario</th>
+                    <th>CPF do Beneficiario</th>
+                    <th>Data de cancelamento</th>
+                    <th>Motivo de cancelamento</th>
+                                        
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in result  %}
+                <tr>
+                    <td>{{ row[4] }}</td>
+                    <td>{{ row[2] }}</td>
+                    <td>{{row['sNomeUSR']}}</td>
+                    <td>{{ row['ScpfUSR'] }}</td>
+                    <td>{{ 'ativo' if row[27] == None else row[27] }}</td>
+                    <td><a href="{{ url_for('vendas.saldos', contrato=row[4]) }}">{{ 'ativo' if row[25] == None else row[25] }}</a></td>
+                    
+                    
+                </tr>
+                {% endfor %}
+    {% endif %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+{% endblock %}

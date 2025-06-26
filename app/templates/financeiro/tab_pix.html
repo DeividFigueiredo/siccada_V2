@@ -1,0 +1,87 @@
+{% extends 'base1.html' %}
+
+{% block title %}Tabela de Pagamentos{% endblock %}
+
+{% block content %}
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/tabpix.css') }}">
+
+<div class="container-tab-pix">
+    <!-- Botão de fechar -->
+    <div class="filter-tab-pix2">
+        <a class="close-btn" href="{{ url_for('generic.home') }}" class="close-btn">✖</a>
+    </div>
+    
+     
+    
+    
+
+    <!-- Título da tabela -->
+    <h1 class="table-title-tab-pix">Tabela de Pagamentos</h1>
+
+    <form class="filter-tab-pix" method="POST">
+        <a class="btn-tab-pix" href="{{ url_for('finan.definir') }}">Filtrar tabela</a>
+    </form>
+
+    <!-- Tabela de pagamentos -->
+    <div class="table-container-tab-pix">
+        <table class="table-tab-pix">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Contrato</th>
+                    <th>Responsável</th>
+                    <th>Valor</th>
+                    <th>Data de Pagamento</th>
+                    <th>Método</th>
+                    <th>Data de vencimento</th>
+                    <th>Status</th>
+                    <th>Descrição</th>
+                    <th>Tipo de Lançamento</th>
+                    <th>Atendente</th>
+                    
+                </tr>
+            </thead>
+            <tbody>
+                {% for pagamento in pagamentos %}
+                <tr>
+                    <td>{{ pagamento[0] }}</td>
+                    <td>{{ pagamento[2] }}</td>
+                    <td>{{ pagamento[3] }}</td>
+                    <td>{{ pagamento[4] }}</td>
+                    <td>{{ pagamento[5] }}</td>
+                    <td>{{ pagamento[6] }}</td>
+                    <td>{{ pagamento[10] }}</td>
+                    <td>
+                        <a class="{% if pagamento[8] == 'baixado' %}status-green{% elif pagamento[8] == 'cancelado' %}status-red{% else %}status-yellow{% endif %}" 
+                           href="{{ url_for('finan.alt_page', pagamento_id=pagamento[0], status=pagamento[8]) }}">
+                            {{ pagamento[8] }}
+                        </a>
+                    </td>
+                    <td>{{ pagamento[7] }}</td>
+                    <td>{{ pagamento[11] }}</td>
+                    <td>{{ pagamento[9] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+    <!-- Botões de ação -->
+    <div class="action-buttons-tab-pix">
+        <a id="export_csv" class="btn-tab-pix">Exportar CSV</a>
+            
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        let urlParams = new URLSearchParams(window.location.search);
+        let filtroStatus = urlParams.get("status") || "todos";
+        let exportLink = document.getElementById("export_csv");
+
+        // Atualiza o href do botão com o status correto
+        exportLink.href = `/finan/csv?status=${encodeURIComponent(filtroStatus)}`;
+    });
+</script>
+{% endblock %}

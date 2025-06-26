@@ -1,0 +1,169 @@
+{% extends "base1.html" %}
+{% block title %}Detalhes de Contrato{% endblock %}
+{% block content %}
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/tabpix.css') }}">
+
+<div class="container-tab-pix">
+    <!-- Botão de fechar -->
+    <div class="filter-tab-pix2">
+        <a class="close-btn" href=" {{ url_for('auth.redir_atent') }} "class="close-btn"><-</a>
+        
+    </div>
+    
+
+    <!-- Título da página -->
+    <h1 class="table-title-tab-pix">Detalhes do Contrato</h1>
+    
+    <!-- Seção de detalhes da venda -->
+    <div class="section-tab-pix">
+        <h2>Venda</h2>
+        <p><strong>Proposta:</strong> <a href="{{ url_for('cad.render_page_doc', proposta=venda[1])}}">{{venda[1]}}</a></p>
+        <p><strong>Contrato:</strong> 
+            <a href="{{ url_for('cad.atualizar_cnt', contrato=venda[13], proposta=venda[1], id=venda[0], last_resp=venda[14], status=venda[6]) }}">
+                {{ 'N/A' if venda[13] == 'None' else venda[13] }}
+            </a>
+        </p>
+        <p><strong>Valor:</strong>{{ venda [8] }}</p>
+        <p><strong>Data:</strong> {{ venda[2] }}</p>
+        <p><strong>Tipo de Contrato:</strong> {{ venda[3] }}</p>
+        <p><strong>Produto:</strong> {{ venda[4] }}</p>
+        <p><strong>Corretor Responsável:</strong> {{ venda[5] }}</p>
+        <p><strong>Status:</strong> 
+            <a href="{{ url_for('cad.atualizar_cnt', contrato=venda[13], proposta=venda[1], id=venda[0], last_resp=venda[14], status=venda[6]) }}">
+                {{ venda[6] }}
+            </a>
+        </p>
+    </div>
+    <br><br>
+        <div>
+            <a href="{{ url_for('cad.alterar_proposta', proposta= venda[1]) }}" class="btn">Editar Informações</a>
+            <a href="{{ url_for('cad.render_page_doc', proposta=venda[1]) }}" class="btn">Anexar Documentos</a>
+            <a href="{{ url_for('cad.documento_contrato', proposta=venda[1]) }}" class="btn">Visualizar/Download Documentos</a>
+        <div>
+    <br><br>
+    <!-- Seção de responsáveis -->
+    <div class="section-tab-pix">
+        <h2>Responsáveis</h2>
+        {% if responsaveis %}
+        <div class="table-container-tab-pix">
+            <table class="table-tab-pix">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>CPF</th>
+                        <th>Data de Nascimento</th>
+                        <th>CEP</th>
+                        <th>Celular</th>
+                        <th>Email</th>
+                        <th>Estado Civil</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for responsavel in responsaveis %}
+                    <tr>
+                        <td>{{ responsavel[2] }}</td>
+                        <td>{{ responsavel[3] }}</td>
+                        <td>{{ responsavel[4] }}</td>
+                        <td>{{ responsavel[5] }}</td>
+                        <td>{{ responsavel[6] }}</td>
+                        <td>{{ responsavel[7] }}</td>
+                        <td>{{ responsavel[8] }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <p class="no-results-tab-pix">Nenhum responsável encontrado.</p>
+        {% endif %}
+    </div>
+
+    <!-- Seção de titulares -->
+    <div class="section-tab-pix">
+        <h2>Titulares</h2>
+        {% if titulares %}
+        <div class="table-container-tab-pix">
+            <table class="table-tab-pix">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>CPF</th>
+                        <th>Data de Nascimento</th>
+                        <th>Idade</th>
+                        <th>CEP</th>
+                        <th>Celular</th>
+                        <th>Email</th>
+                        <th>Estado Civil</th>
+                        <th>Nome da Mãe</th>
+                        <th>Sexo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for titular in titulares %}
+                    <tr>
+                        <td>{{ titular[2] }}</td>
+                        <td>{{ titular[3] }}</td>
+                        <td>{{ titular[4] }}</td>
+                        <td>{{ titular[5] }}</td>
+                        <td>{{ titular[6] }}</td>
+                        <td>{{ titular[7] }}</td>
+                        <td>{{ titular[8] }}</td>
+                        <td>{{ titular[9] }}</td>
+                        <td>{{ titular[10] }}</td>
+                        <td>{{ titular[12] }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <p class="no-results-tab-pix">Nenhum titular encontrado.</p>
+        {% endif %}
+    </div>
+
+    <!-- Seção de dependentes -->
+    <div class="section-tab-pix">
+        <h2>Dependentes</h2>
+        {% if dependentes %}
+        <div class="table-container-tab-pix">
+            <table class="table-tab-pix">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>CPF</th>
+                        <th>Data de Nascimento</th>
+                        <th>Grau de Parentesco</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for dependente in dependentes %}
+                    <tr>
+                        <td>{{ dependente[2] }}</td>
+                        <td>{{ dependente[3] }}</td>
+                        <td>{{ dependente[4] }}</td>
+                        <td>{{ dependente[5] }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <p class="no-results-tab-pix">Nenhum dependente encontrado.</p>
+        {% endif %}
+    </div>
+</div>
+
+<script>
+    function goBack() {
+        if (document.referrer) {
+            // Voltar para a página anterior
+            window.history.back();
+        } else {
+            // Redirecionar para a home se não houver página anterior
+            window.location.href = '/';
+        }
+    }
+</script>
+
+{% endblock %}

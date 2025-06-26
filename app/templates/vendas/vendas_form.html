@@ -1,0 +1,313 @@
+{% extends 'base1.html' %}
+
+{% block title %}Vendas{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/estilos.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/sidebar.css') }}">
+
+<style>
+    h1 { color: #ddd; text-align: center; padding: 20px; }
+    .form-container { max-width: 800px; margin: 20px auto; background: #2d2d2d; border-radius: 8px; padding: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);}
+    .tabs { display: flex; justify-content: space-around; margin-bottom: 20px; }
+    .tab { padding: 10px 20px; background: #2d2d2d; border: 1px solid #2d2d2d; border-radius: 5px; cursor: pointer; transition: background 0.3s;}
+    .tab.active { background: #007bff; color: #fff; }
+    .form-section { display: none; padding: 20px; }
+    .form-section.active { display: block; }
+    .form-field { margin-bottom: 10px; }
+    .form-field label { display: block; margin-bottom: 5px; }
+    .form-field input, .form-field select { width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; }
+    .nav-buttons { display: right; justify-content: space-between; margin-top: 20px; }
+    .nav-buttons button { padding: 10px 20px; border: none; background: #007bff; color: white; border-radius: 4px; cursor: pointer; }
+    .nav-buttons button:hover { background: #0056b3; }
+    .dependente { margin-bottom: 20px; }
+    .dependente button { background: #dc3545; color: white; padding: 5px 10px; border: none; border-radius: 4px; cursor: pointer; }
+    .dependente button:hover { background: #c82333; }
+    label { 
+    color: #fff !important; 
+    text-shadow: 1px 1px 2px #000;
+    }   
+    p { color: #ddd; }
+</style>
+
+<script>
+function showTab(index) {
+    const sections = document.querySelectorAll('.form-section');
+    const tabs = document.querySelectorAll('.tab');
+    sections.forEach((section, i) => {
+        section.classList.toggle('active', i === index);
+    });
+    tabs.forEach((tab, i) => {
+        tab.classList.toggle('active', i === index);
+    });
+}
+function copiarDadosResponsavelParaTitular() {
+    var responsavelNome = document.getElementById('nome_responsavel').value;
+    var responsavelCpf = document.getElementById('cpf_responsavel').value;
+    var responsavelDtNascimento = document.getElementById('dt_nascimento_responsavel').value;
+    var responsavelEndereco = document.getElementById('endereco_responsavel').value;
+    var responsavelCelular = document.getElementById('celular_responsavel').value;
+    var responsavelEmail = document.getElementById('email_responsavel').value;
+    var estadoCivil = document.getElementById('estado_cv_responsavel').value;
+    if (document.getElementById('responsavel_igual_titular').checked) {
+        document.getElementById('nome_beneficiario').value = responsavelNome;
+        document.getElementById('cpf_beneficiario').value = responsavelCpf;
+        document.getElementById('dt_nascimento_beneficiario').value = responsavelDtNascimento;
+        document.getElementById('endereco_beneficiario').value = responsavelEndereco;
+        document.getElementById('celular_titular').value = responsavelCelular;
+        document.getElementById('email_titular').value = responsavelEmail;
+        document.getElementById('estado_cv_beneficiario').value = estadoCivil;
+    } else {
+        document.getElementById('nome_beneficiario').value = '';
+        document.getElementById('cpf_beneficiario').value = '';
+        document.getElementById('dt_nascimento_beneficiario').value = '';
+        document.getElementById('endereco_beneficiario').value = '';
+        document.getElementById('celular_titular').value = '';
+        document.getElementById('email_titular').value = '';
+        document.getElementById('estado_cv_beneficiario').value = '';
+    }
+}
+function addDependente() {
+    const dependentesContainer = document.getElementById('dependentes-container');
+    const dependenteDiv = document.createElement('div');
+    dependenteDiv.classList.add('dependente');
+    dependenteDiv.innerHTML = `
+        <div class="form-field">
+            <label>Nome do Dependente:</label>
+            <input type="text" name="nome_dependente[]" required>
+        </div>
+        <div class="form-field">
+            <label>CPF do Dependente:</label>
+            <input type="text" name="cpf_dependente[]" required>
+        </div>
+        <div class="form-field">
+            <label>Data de Nascimento:</label>
+            <input type="date" name="dt_nascimento_dependente[]" required>
+        </div>
+        <div class="form-field">
+            <label>Grau de Parentesco:</label>
+            <select name="grau_parentesco_dependente[]" required>
+                <option value="" disabled selected>Selecione</option>
+                <option value="filho(a)">Filho</option>
+                <option value="conjuge">Cônjuge</option>
+                <option value="pai">Pai</option>
+                <option value="mae">Mãe</option>
+                <option value="outro">Outro</option>            
+            </select>
+            <div class="form-field">
+            <label>Nome da mãe do Dependente:</label>
+            <input type="text" name="mãe_dependente[]" required>
+        </div>
+
+
+        </div>
+        <button type="button" onclick="removeDependente(this)">Remover Dependente</button>
+        <hr>
+    `;
+    dependentesContainer.appendChild(dependenteDiv);
+}
+function removeDependente(button) {
+    button.parentElement.remove();
+}
+</script>
+
+<div class="table-container">
+    <div class="form-container">
+        <div>
+            <a class="close-btn" href="{{ url_for('generic.home') }}">X</a>
+        </div>
+        <h1>Formulário de Preenchimento de Contrato</h1>
+        <div class="tabs">
+            <div class="tab active" onclick="showTab(0)">Venda</div>
+            <div class="tab" onclick="showTab(1)">Responsável</div>
+            <div class="tab" onclick="showTab(2)">Titular</div>
+            <div class="tab" onclick="showTab(3)">Dependentes</div>
+        </div>
+        <form action="{{ url_for('vendas.venda_form') }}" method="POST">
+            <!-- Seção de Venda -->
+            <div class="form-section active" id="section-venda">
+                <div class="form-field">
+                    <label for="numero_proposta">Número da Proposta:</label>
+                    <input type="text" id="numero_proposta" name="numero_proposta" required>
+                </div>
+                <div class="form-field">
+                    <label for="data_venda">Data da Venda:</label>
+                    <input type="date" id="data_venda" name="data_venda" required>
+                </div>
+                <div class="form-field">
+                    <label for="tipo_contrato">Tipo de Contrato:</label>
+                    <select id="tipo_contrato" name="tipo_contrato" required>
+                        <option value="" disabled selected>Selecione</option>
+                        <option value="individual">Individual</option>
+                        <option value="empresarial">Empresarial</option>
+                    </select>
+                </div>
+                <div class="form-field">
+                    <label for="tipo_produto">Tipo de Produto:</label>
+                    <select id="tipo_produto" name="tipo_produto" required>
+                        <option value="Amacor Exclusivo 1">AMACOR EXCLUSIVO I</option>
+                        <option value="Amacor Exclusivo 2">AMACOR EXCLUSIVO II</option>
+                    </select>
+                </div>
+                <div class="form-field">
+                    <label for="corretor_resp">Corretor Responsável:</label>
+                    <select id="corretor_resp" name="corretor_resp" required>
+                        <option value="" disabled selected>Selecione</option>
+                        {% if vendedor %}
+                            {% for v in vendedor %}
+                                <option value="{{ v[1] }}">{{ v[1] }}</option>
+                            {% endfor %}
+                        {% endif %}
+                        <option value="externo">Corretor externo</option>
+                        <option value="Lapis Bellus">Lapis Bellus</option>
+                        <option value="Unix">Unix</option>
+                    </select>
+                </div>
+                <div class="form-field">
+                    <label for="valor_venda">Valor da venda:</label>
+                    <input type="value" id="valor_venda" name="valor_venda" required>
+                </div>
+                <div class="nav-buttons">
+                    <button type="button" onclick="showTab(1)">Próxima Aba</button>
+                </div>
+            </div>
+            <!-- Seção de Responsável -->
+            <div class="form-section" id="section-responsavel">
+                <div class="card">
+                    <h3>Informações do Responsável</h3>
+                    <div class="form-field">
+                        <label for="nome_responsavel">Nome do Responsável:</label>
+                        <input type="text" id="nome_responsavel" name="nome_responsavel" required>
+                    </div>
+                    <div class="form-field">
+                        <label for="cpf_responsavel">CPF do Responsável:</label>
+                        <input type="text" id="cpf_responsavel" name="cpf_responsavel" required>
+                    </div>
+                    <div class="form-field">
+                        <label for="dt_nascimento_responsavel">Data de Nascimento:</label>
+                        <input type="date" id="dt_nascimento_responsavel" name="dt_nascimento_responsavel" required>
+                    </div>
+                    <div class="form-field">
+                        <label for="endereco_responsavel">Endereço:</label>
+                        <input type="text" id="endereco_responsavel" name="endereco_responsavel" required>
+                    </div>
+                    <div class="form-field">
+                        <label for="celular_responsavel">Celular:</label>
+                        <input type="text" id="celular_responsavel" name="celular_responsavel" required>
+                    </div>
+                    <div class="form-field">
+                        <label for="email_responsavel">Email:</label>
+                        <input type="email" id="email_responsavel" name="email_responsavel" required>
+                    </div>
+                    <div class="form-field">
+                        <label for="estado_cv_responsavel">Estado Civil:</label>
+                        <select id="estado_cv_responsavel" name="estado_cv_responsavel" required>
+                            <option value="" disabled selected>Selecione</option>
+                            <option value="solteiro">Solteiro</option>
+                            <option value="casado">Casado</option>
+                            <option value="viuvo">Viúvo</option>
+                            <option value="divorciado">Divorciado</option>
+                        </select>
+                    </div>
+                    <div class="form-field">
+                        <input type="checkbox" id="responsavel_igual_titular" onclick="copiarDadosResponsavelParaTitular()"> Responsável é o Titular
+                    </div>
+                </div>
+                <div class="nav-buttons">
+                    <button type="button" onclick="showTab(0)">Voltar</button>
+                    <button type="button" onclick="showTab(2)">Proxima Aba</button>
+                </div>
+            </div>
+            <!-- Seção de Titular -->
+            <div class="form-section" id="section-titular">
+                <div class="card">
+                    <h3>Informações do Titular</h3>
+                    <div class="form-field">
+                        <label for="nome_beneficiario">Nome do Titular:</label>
+                        <input type="text" id="nome_beneficiario" name="nome_beneficiario" required>
+                    </div>
+                    <div class="form-field">
+                        <label for="cpf_beneficiario">CPF do Titular:</label>
+                        <input type="text" id="cpf_beneficiario" name="cpf_beneficiario" required>
+                    </div>
+                    <div class="form-field">
+                        <label for="dt_nascimento_beneficiario">Data de Nascimento:</label>
+                        <input type="date" id="dt_nascimento_beneficiario" name="dt_nascimento_beneficiario" required>
+                    </div>
+                    <div class="form-field">
+                        <label for="idade_beneficiario">Idade:</label>
+                        <input type="number" id="idade_beneficiario" name="idade_beneficiario" required>
+                    </div>
+                    <div class="form-field">
+                        <label for="endereco_beneficiario">Endereço:</label>
+                        <input type="text" id="endereco_beneficiario" name="endereco_beneficiario" required>
+                    </div>
+                    <div class="form-field">
+                        <label for="celular_titular">Celular:</label>
+                        <input type="text" id="celular_titular" name="celular_titular" required>
+                    </div>
+                    <div class="form-field">
+                        <label for="email_titular">Email:</label>
+                        <input type="email" id="email_titular" name="email_titular" required>
+                    </div>
+                    <div class="form-field">
+                        <label for="estado_cv_beneficiario">Estado Civil:</label>
+                        <select id="estado_cv_beneficiario" name="estado_cv_beneficiario" required>
+                            <option value="" disabled selected>Selecione</option>
+                            <option value="solteiro">Solteiro</option>
+                            <option value="casado">Casado</option>
+                            <option value="viuvo">Viúvo</option>
+                            <option value="divorciado">Divorciado</option>
+                        </select>
+                    </div>
+                    <div class="form-field">
+                        <label for="nome_mae_beneficiario">Nome da Mãe:</label>
+                        <input type="text" id="nome_mae_beneficiario" name="nome_mae_beneficiario" required>
+                    </div>
+                    <div class="form-field">
+                        <label for="nome_pai_beneficiario">Nome do Pai:</label>
+                        <input type="text" id="nome_pai_beneficiario" name="nome_pai_beneficiario">
+                    </div>
+                    <div class="form-field">
+                        <label for="sexo_beneficiario">Sexo:</label>
+                        <select id="sexo_beneficiario" name="sexo_beneficiario" required>
+                            <option value="" disabled selected>Selecione</option>
+                            <option value="masculino">Masculino</option>
+                            <option value="feminino">Feminino</option>
+                            <option value="outro">Outro</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="nav-buttons">
+                    <button type="button" onclick="showTab(1)">voltar</button>
+                    <button type="button" onclick="showTab(3)">Proxima Aba</button>
+                </div>
+            </div>
+            <!-- Seção de Dependentes -->
+            <div class="form-section" id="section-dependentes">
+                <div class="card">
+                    <h3>Informações dos Dependentes</h3>
+                    <div id="dependentes-container"></div>
+                    <button type="button" onclick="addDependente()">Adicionar Dependente</button>
+                </div>
+                <div class="nav-buttons">
+                    <button type="button" onclick="showTab(2)">Voltar</button>
+                    <button type="submit" onclick="mostrarTodasAbas()">Salvar Contrato</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+    // Garante que a primeira aba está ativa ao carregar
+    document.addEventListener("DOMContentLoaded", function() {
+        showTab(0);
+    });
+
+    function mostrarTodasAbas() {
+    document.querySelectorAll('.form-section').forEach(function(section) {
+        section.classList.add('active');
+    });
+}
+</script>
+{% endblock %}

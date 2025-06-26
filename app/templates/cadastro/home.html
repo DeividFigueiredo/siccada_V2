@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block title %}Bem-vindo{% endblock %}
+
+{% block content %}
+<div class="container-cards">
+    <a class="btn" href="{{ url_for('pdfgen.create_card') }}">criar carteirinha</a> <br>
+    <a class="btn" href="">lote de telemedicina</a>
+    <a class="btn" href="{{ url_for('doc_gen.gerar_documentos') }}">gerador de kit</a>
+    <a class="btn" href="{{ url_for('doc_gen.gerar_documentos') }}">gerador de kit</a>
+        <br><br>
+    
+</div>
+<div class="welcome">
+    
+    
+
+
+{% endblock %}

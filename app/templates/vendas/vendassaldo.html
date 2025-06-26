@@ -1,0 +1,29 @@
+{% extends 'base1.html' %}
+
+{% block title %}Vendas{% endblock %}
+
+{% block content %}
+<br><br
+<body class="body">
+    <div class="divisoria4">
+        <h1>Resultado da Consulta</h1>
+        
+        {% if result %}
+            <div class="result">
+                <p><strong>Nome Responsável:</strong> {{ result[1] }}</p> <!-- Nome do responsável -->
+                <p><strong>Numero do Contrato:</strong> {{ result[0] }}</p> <!-- Número do contrato -->
+                <p><strong>Parcelas em aberto:</strong> {{ result[2] }}</p> <!-- Valor da parcela com 2 casas decimais -->
+                <p><strong>Valor Total:</strong> {{ result[4] }}</p> <!-- Valor total com 2 casas decimais -->
+            </div>
+        {% else %}
+            <p class="prince">Registro Financeiro não encontrado.</p>
+            <p>Não foi possível encontrar os dados para o contrato especificado, talvez a informação seja muito antiga.</p>
+        {% endif %}
+
+        <a href="{{ url_for('vendas.cpf') }}" class="btn">Voltar</a>
+        
+        
+    </div>
+</body>
+
+{% endblock %}

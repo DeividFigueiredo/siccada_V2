@@ -1,0 +1,31 @@
+{% extends 'base1.html' %}
+
+{% block title %}Vendas{% endblock %}
+
+{% block content %}
+ 
+<div class="container">
+    <div class="divisoria2">
+        <div class="close-btn-container">
+            <a class="close-btn" href="{{ url_for('generic.home') }}">X</a>
+        </div>
+        <h1>Consulta de CPF</h1>
+        <form method="POST" class="cpf-form">
+            <label for="cpf">Digite o CPF:</label>
+            <input type="text" id="cpf" name="cpf" required placeholder="00000000000">
+            <label for="tipo">buscando por:</label>
+            <select class="selceionador" id="tipo" name="tipo" required>
+                <option value="beneficiario">Beneficiarios</option>
+                <option value="responsavel">Responsável</option>
+            </select>
+
+            <button class="btn" type="submit">Buscar</button>
+        </form>
+
+        {% if error %}
+            <div class="error">{{ error }}</div>
+        {% endif %}
+</div>
+    </div>
+    
+{% endblock %}

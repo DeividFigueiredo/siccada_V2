@@ -1,0 +1,25 @@
+{% extends 'base1.html' %}
+
+{% block title %}Gerador de carteirinhas{% endblock %}
+
+{% block content %}
+<div class= container>
+<div class="divisoria2">
+    <div class="close-btn-container">
+        <a class="close-btn" href="{{ url_for('generic.home') }}"class="close-btn"><</a>
+    </div>
+    <h1>Gerador de carteirinhas</h1>
+    <h3>Selecione o arquivo PDF da parte frontal da carteirinha:</h3>
+
+    <form action="{{ url_for('pdfgen.upload_files') }}" method="POST" enctype="multipart/form-data">
+                
+        <label class="info" for="back_pdf">Selecione o PDF da Parte Traseira:</label>
+        <input class="info" type="file" name="back_pdf" required><br><br>
+
+        <button class="btn" type="submit">Gerar PDF</button>
+    </form>
+</div>
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends 'base1.html' %}
+
+{% block title %}Bem-vindo{% endblock %}
+    
+    {% block content %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload de Documento</title>
+</head>
+
+
+<body>
+    <div class="container">
+        <div class="divisoria2">
+    <h1>Upload de Documento</h1>
+    <form action="{{ url_for('doc_gen.upload_documento') }}" method="POST" enctype="multipart/form-data">
+        <label for="arquivos">Selecione os documentos para upload:</label>
+        <input type="file" name="arquivos" id="arquivos" multiple required>
+        <button type="submit">Enviar</button>
+    </form>
+</body>
+</html>
+</div>
+</div>    
+        {% endblock %}

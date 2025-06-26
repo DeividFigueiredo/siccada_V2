@@ -1,0 +1,20 @@
+{% extends 'base1.html' %}
+
+{% block title %}Gerador de documentos{% endblock %}
+
+{% block content %}
+<body class="body">
+    <div class="container">
+        <div class="divisoria2">
+    <h1>Kit gerado</h1>
+    <h3>Kit processado e gerado corretamente, <a href="{{ url_for('doc_gen.download_documento_final') }}"><strong>clique aqui para baixar.</strong></a></h3>
+
+
+    <A class="btn" href="{{ url_for('doc_gen.gerar_documentos') }}">voltar</A>
+
+    </div>
+    </div>
+</body>
+
+
+{% endblock %}

@@ -1,0 +1,44 @@
+{% extends 'base1.html' %}
+
+{% block title %}Anexar documentos{% endblock %}
+    
+    {% block content %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anexar documentos da proposta</title>
+</head>
+
+
+<body>
+    <div class="container">
+        <div class="divisoria2">
+            <div class="close-btn-container">
+                    <a class="close-btn" href="javascript:void(0);" onclick="goBack()" class="close-btn"><</a>
+                </div>
+    <h1>Anexar documentos da proposta</h1>
+    <form action="{{ url_for('cad.adicionar_doc', proposta=proposta) }}" method="POST" enctype="multipart/form-data">
+        <label for="arquivos">Selecione os documentos para upload:</label>
+        <input type="file" name="arquivos" id="arquivos" multiple required>
+        <button type="submit">Enviar</button>
+    </form>
+</body>
+</html>
+</div>
+</div>
+
+<script>
+    function goBack() {
+        if (document.referrer) {
+            // Voltar para a página anterior
+            window.history.back();
+        } else {
+            // Redirecionar para a home se não houver página anterior
+            window.location.href = '/';
+        }
+    }
+</script>
+        {% endblock %}

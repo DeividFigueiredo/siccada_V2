@@ -1,0 +1,18 @@
+{% extends "base1.html" %}
+
+{% block title %}
+Perfil
+{% endblock %}
+
+{% block content %}
+<br><br>
+<div class="body">
+<h1>Perfil</h1>
+<p>
+Nome:{{ usuario_nome }}<br>
+tipo: {{ usuario_tipo }}
+<br><br>
+<a class="btn" href="{{ url_for('auth.mudar_senha') }}">Alterar senha</a>
+</p>
+</div>
+{% endblock %}
