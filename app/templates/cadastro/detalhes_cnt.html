@@ -18,7 +18,7 @@
     <!-- Seção de detalhes da venda -->
     <div class="section-tab-pix">
         <h2>Venda</h2>
-        <p><strong>Proposta:</strong> <a href="{{ url_for('cad.render_page_doc', proposta=venda[1])}}">{{venda[1]}}</a></p>
+        <p><strong>Proposta:</strong> {{venda[1]}}</p>
         <p><strong>Contrato:</strong> 
             <a href="{{ url_for('cad.atualizar_cnt', contrato=venda[13], proposta=venda[1], id=venda[0], last_resp=venda[14], status=venda[6]) }}">
                 {{ 'N/A' if venda[13] == 'None' else venda[13] }}
