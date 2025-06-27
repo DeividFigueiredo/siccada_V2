@@ -57,8 +57,9 @@ def salvar_venda(venda, responsavel, titular, dependentes, database_path=None):
 
         # Inserir dados dos dependentes
         for dependente in dependentes:
+            print(dependente)
             cur.execute("""
-                INSERT INTO dependentes (proposta_id, nome, cpf, data_nascimento, grau_parentesco, cpf_titular,mae_dependente)
+                INSERT INTO dependentes (proposta_id, nome, cpf, data_nascimento, grau_parentesco, cpf_titular,nome_mae)
                 VALUES (?, ?, ?, ?, ?, ?,?)
             """, (proposta_id, dependente['nome'], dependente['cpf'], dependente['data_nascimento'],
                   dependente['grau_parentesco'], dependente['cpf_titular'],dependente['mae_dependente']))
