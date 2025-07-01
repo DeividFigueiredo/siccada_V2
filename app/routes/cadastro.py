@@ -89,7 +89,7 @@ def acompanhar_cnt():
             return render_template('cadastro/acompanhar_cnt.html', result=result, resp=resp)
         elif tipo_usuario == 'administrativo':
             print(f"Tipo de usuário: {tipo_usuario}")
-            query = "SELECT * FROM venda WHERE status ='entrevista agendada' OR status = 'analise de declaração'OR status= 'geração de kit'"
+            query = "SELECT * FROM venda WHERE status ='entrevista agendada' OR status = 'analise de declaração'OR status= 'geração de kit' OR status = 'Enviado ao cadastro'"
             result = query_db(query)
 
             return render_template('cadastro/acompanhar_cnt.html', result=result, resp=resp)
@@ -184,7 +184,7 @@ def atualizar_cnt():
 
 
 @cad_bp.route('/adicionar_cnt', methods=['GET','POST'])
-@acesso('cadastro')
+@acesso('cadastro','administrativo')
 @hierarquia('supervisor','agente')
 def adicionar_cnt():
     id =request.args.get('id')
