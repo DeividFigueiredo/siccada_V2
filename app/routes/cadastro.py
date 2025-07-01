@@ -104,11 +104,7 @@ def detalhes_cnt():
     if id is None:
         return "ID não fornecido", 400
 
-    try:
-        id = int(id)
-    except ValueError:
-        return "ID inválido", 400
-
+    
     conn = sqlite3.connect(current_app.config['DATABASE'])
     cur = conn.cursor()
 
