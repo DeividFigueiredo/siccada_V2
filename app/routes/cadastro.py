@@ -150,9 +150,9 @@ def detalhes_cnt():
 @hierarquia('supervisor','agente','vendedor')
 def alterar_proposta():
     proposta= request.args.get('proposta')
-    registro= query_db("SELECT * FROM venda WHERE numero_proposta = ?", (proposta,), one=True)
     
-    return render_template('cadastro/alterar_proposta.html', registro=registro, proposta=proposta)
+    
+    return render_template('cadastro/alterar_proposta.html', proposta=proposta)
     
 @cad_bp.route('/alterar_registro', methods=['POST', 'GET'])
 
@@ -301,6 +301,31 @@ def gravar_alteracao():
 
         return redirect(url_for('cad.acompanhar_cnt'))
 
+@cad_bp.route('/alterar_infos_prpopsta', methods=['POST', 'GET'])
+@acesso('vendas', 'cadastro', 'administrativo')
+@hierarquia('supervisor','agente','vendedor')
+def alterar_infos_proposta():
+    proposta = request.args.get('proposta')
+    print(f"Proposta recebida: {proposta}")
+    tp_alt = request.args.get('tp_alt')
+    print(tp_alt)
+    if not proposta:
+        flash('Proposta não informada.','error')
+        return redirect(url_for('cad.detalhes_cnt', proposta=proposta))
+    
+    if tp_alt =='venda':
+        try:
+            dados = query_db ("SELECT * FROM venda WHERE numero_proposta = ?", (proposta,), one=True)
+            if not dados:
+                flash('Proposta não encontrada.','error')
+                return redirect(url_for('cad.detalhes_cnt',proposta=proposta))
+        except sqlite3.Error as e:
+            flash(f'Erro ao consultar a proposta: {e}', 'error')
+            return redirect(url_for('cad.detalhes_cnt',proposta=proposta))
+        
+
+        
+    
 
 @cad_bp.route('/documentos_contrato/<proposta>')
 def documento_contrato(proposta):

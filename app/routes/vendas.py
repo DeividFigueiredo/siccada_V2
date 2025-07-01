@@ -141,12 +141,13 @@ def venda_form():
             valor_base -= valor_iss           
         else:
             valor_iss= 0
-            venda["valor_tabela"] = valor_base
+            venda["valor_tabela"] = round(valor_base,2)
             
 
         venda['valor_tabela'] = valor_base
         venda['iss'] = valor_iss
         print(f"Valor base após ISS: {valor_base}")
+
         # Ajusta formato da data_venda para DD/MM/YYYY se vier preenchida
         if venda["data_venda"]:
             try:

@@ -158,3 +158,23 @@ def redir_atent():
         print(tipo_usuario)
         return redirect(url_for('generic.home'))
     
+
+@auth_bp.route('/login_redir')
+def login_redir():
+    tipo_usuario = session.get('tipo_usuario')
+    classe_usuario= session.get("classe_usuario")
+    if tipo_usuario == 'vendas':
+        if classe_usuario == 'vendedor':
+            return redirect(url_for('generic.home'))
+        elif classe_usuario == 'supervisor':
+            return redirect(url_for('gerencial.home'))
+    elif tipo_usuario == 'cadastro':
+        return redirect(url_for('generic.home'))
+    elif tipo_usuario == 'administrativo':
+        return redirect(url_for('generic.home'))
+    elif tipo_usuario == 'financeiro':
+        return redirect(url_for('financeiro.home'))
+    
+    else:
+        flash('Tipo de usuário inválido.')
+        return redirect(url_for('generic.home'))
