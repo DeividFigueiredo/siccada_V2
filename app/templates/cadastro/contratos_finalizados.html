@@ -28,7 +28,7 @@
                     <th>Tipo de Contrato</th>
                     <th>Produto</th>
                     <th>Valor Tabela</th>
-                    <th>Taxa de Inscrição</th>
+                    <th>Vidas</th>
                     <th>Valor Total</th>
                     <th>Ações</th>
                 </tr>
@@ -45,7 +45,7 @@
                     <td>{{ row[3] }}</td>
                     <td>{{ row[4] }}</td>
                     <td>R$ {{ row[12] }}</td>
-                    <td>R$ {{ row[10] }}</td>
+                    <td>{{ row[15] }}</td>
                     <td>R$ {{ row[8] }}</td>
                     <td>
                         <a class="btn-tab-pix" href="{{ url_for('cad.detalhes_cnt', proposta=row[1], contrato=row[13], id=row[0]) }}">Detalhes</a>
