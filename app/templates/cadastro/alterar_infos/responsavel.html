@@ -8,7 +8,7 @@
 </style>
 <div class="container-tab-pix">
     <div class="filter-tab-pix2">
-        <a class="close-btn" href="{{ url_for('auth.redir_atent') }}" class="close-btn"><<</a>
+        <a class="close-btn" href="{{ url_for('cad.alterar_proposta', proposta=proposta) }}" class="close-btn"><<</a>
     </div>
     
     <link rel="stylesheet" href="{{ url_for('static', filename='css/tabpix.css') }}">
@@ -38,7 +38,12 @@
     <input type="text" name="email" value="{{ dados[7] }}">
     <br>
     <label>estado civil:</label>
-    <input type="text" name="estado_civil" value="{{ dados[8] }}">
+    <select name="estado_civil" id="estado_civil">
+    <option value="solteiro" {% if dados[8] == 'solteiro' %}selected{% endif %}>Solteiro</option>
+    <option value="casado" {% if dados[8] == 'casado' %}selected{% endif %}>Casado</option>
+    <option value="viuvo" {% if dados[8] == 'viuvo' %}selected{% endif %}>Viuvo</option>
+    <option value="divorciado" {% if dados[8] == 'divorciado' %}selected{% endif %}>Divorciado</option>
+    </select>
     <br>
     <button type="submit">Salvar</button>
     </div>

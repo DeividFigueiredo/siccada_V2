@@ -8,7 +8,7 @@
 </style>
 <div class="container-tab-pix">
     <div class="filter-tab-pix2">
-        <a class="close-btn" href="{{ url_for('auth.redir_atent') }}" class="close-btn"><<</a>
+        <a class="close-btn" href="{{ url_for('cad.alterar_proposta', proposta=proposta) }}" class="close-btn"><<</a>
     </div>
     
     <link rel="stylesheet" href="{{ url_for('static', filename='css/tabpix.css') }}">
@@ -29,7 +29,13 @@
     <label>data de nascimento do dependente:</label>
     <input type="text" name="data_nascimento" value="{{ dados[4] }}">
     <label>Grau de parentesco:</label>
-    <input type="text" name="grau_parentesco" value="{{ dados[5] }}">
+    <select name="grau_parentesco" id="grau_parentesco">
+        <option value="filho(a)" {% if dados[8] == 'filho(a)' %}selected{% endif %}>FIlho(a)</option>
+        <option value="conjuge" {% if dados[8] == 'conjuge' %}selected{% endif %}>conjuge</option>
+        <option value="pai" {% if dados[8] == 'pai' %}selected{% endif %}>Pai</option>
+        <option value="mae" {% if dados[8] == 'mae' %}selected{% endif %}>Mãe</option>
+        <option value="outro" {% if dados[8] == 'outro' %}selected{% endif %}>Outro</option>
+    </select>
     <br>
     <label>CPF do Titular:</label>
     <input type="text" name="cpf_titular" value="{{ dados[6] }}">
