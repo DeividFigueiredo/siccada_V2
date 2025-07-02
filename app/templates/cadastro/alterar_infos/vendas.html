@@ -1,0 +1,58 @@
+{% extends "base1.html" %}
+{% block title %}Alterar venda{% endblock %}
+{% block content %}
+<style>
+    h1{
+        color: white
+    }
+</style>
+<div class="container-tab-pix">
+    <div class="filter-tab-pix2">
+        <a class="close-btn" href="{{ url_for('cad.alterar_proposta', proposta=proposta) }}" class="close-btn"><<</a>
+    </div>
+    
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/tabpix.css') }}">
+<h1>Alterar Venda #{{ dados[1] }}</h1>
+<form action="{{ url_for('cad.alterar_infos') }}" method="post">
+    
+    <label>Proposta:</label>
+    <input type="text" name="numero_proposta" value="{{ dados[1] }}" readonly>
+    <br>
+    <input type="hidden" name="tipo" value="venda">
+    <label>Data da venda:</label>
+    <input type="date" name="data_venda" value="{{ dados[2] }}">
+    <br>
+    <label>tipo de contrato:</label>
+    <select name="tipo_contrato" id="tipo_contrato">
+        <option value="{{dados[3]}}">{{dados[3]}}</option>
+        <option value="individual">Individual</option>
+        <option value="empresarial">empresarial</option>
+    </select>
+    <br>
+    <label>produto:</label>
+    <select name="tipo_produto" id="tipo_produto">
+        <option value="Amacor Exclusivo 1" {% if dados[4] == 'Amacor Exclusivo 1' %}selected{% endif %}>AMACOR EXCLUSIVO 1</option>
+        <option value="Amacor Exclusivo 2" {% if dados[4] == 'Amacor Exclusivo 2' %}selected{% endif %}>AMACOR EXCLUSIVO 2</option>
+    </select>
+    <br>
+    <label>Corretor:</label>
+    <input type="text" name="corretor_resp" value="{{ dados[5] }}"readonly>
+    <br>
+    <label>Valor total da venda:</label>
+    <input type="text" name="valor_venda" value="{{ dados[8] }}">
+    <br>
+    <label>Valor da tabela:</label>
+    <input type="text" name="valor_tabela" value="{{ dados[12] }}">
+    <label>Vidas:</label>
+    <input type="text" name="vidas" value="{{ dados[15] }}"readonly>
+    <br>
+    <label>Responsavel pelo contrato:</label>
+    <input type="text" name="nome_responsavel" value="{{ dados[18] }}">
+    <br>
+    <label>Documentos enviados?</label>
+    <input type="text" name="envio_documento" value="{{ 'Não' if dados[19] == 0 else 'sim' }}"readonly>
+    <button type="submit">Salvar</button>
+    </div>
+</form>
+</div> 
+{% endblock %}

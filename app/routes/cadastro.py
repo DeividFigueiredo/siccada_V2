@@ -5,7 +5,7 @@ from werkzeug.utils import secure_filename
 from PyPDF2 import PdfMerger
 #from pdf2image import convert_from_path
 from app.utils import acesso, hierarquia
-from ..models.database import query_db
+from ..models.database import query_db, update_db
 import sqlite3
 import re
 import glob
@@ -101,10 +101,7 @@ def detalhes_cnt():
     id = request.args.get('proposta')
     print(f"ID recebido: {id}")
 
-    if id is None:
-        return "ID não fornecido", 400
-
-    
+      
     conn = sqlite3.connect(current_app.config['DATABASE'])
     cur = conn.cursor()
 
@@ -297,7 +294,7 @@ def gravar_alteracao():
 
         return redirect(url_for('cad.acompanhar_cnt'))
 
-@cad_bp.route('/alterar_infos_prpopsta', methods=['POST', 'GET'])
+@cad_bp.route('/alterar_infos_prpopsta', methods=['GET'])
 @acesso('vendas', 'cadastro', 'administrativo')
 @hierarquia('supervisor','agente','vendedor')
 def alterar_infos_proposta():
@@ -311,16 +308,130 @@ def alterar_infos_proposta():
     
     if tp_alt =='venda':
         try:
-            dados = query_db ("SELECT * FROM venda WHERE numero_proposta = ?", (proposta,), one=True)
-            if not dados:
-                flash('Proposta não encontrada.','error')
-                return redirect(url_for('cad.detalhes_cnt',proposta=proposta))
+            dados = query_db("SELECT * FROM venda WHERE numero_proposta = ?", (proposta,), one=True)
+            return render_template('cadastro/alterar_infos/vendas.html', dados=dados, proposta=proposta)
         except sqlite3.Error as e:
             flash(f'Erro ao consultar a proposta: {e}', 'error')
-            return redirect(url_for('cad.detalhes_cnt',proposta=proposta))
+            return redirect(url_for('cad.detalhes_cnt', proposta=proposta))
+    
+    if tp_alt =='respp':
+        try:
+            dados = query_db("SELECT * FROM responsavel WHERE proposta_id = ?", (proposta,), one=True)
+            return render_template('cadastro/alterar_infos/responsavel.html', dados=dados, proposta=proposta)
+        except sqlite3.Error as e:
+            flash(f'Erro ao consultar a proposta: {e}', 'error')
+            return redirect(url_for('cad.detalhes_cnt', proposta=proposta))
+    
+    if tp_alt =='titular':
+        try:
+            dados = query_db("SELECT * FROM titulares WHERE proposta_id = ?", (proposta,), one=True)
+            return render_template('cadastro/alterar_infos/titulares.html', dados=dados, proposta=proposta)
+        except sqlite3.Error as e:
+            flash(f'Erro ao consultar a proposta: {e}', 'error')
+            return redirect(url_for('cad.detalhes_cnt', proposta=proposta))
+    
+    if tp_alt =='depenn':
+        try:
+            dados = query_db("SELECT * FROM dependentes WHERE proposta_id = ?", (proposta,), one=True)
+            return render_template('cadastro/alterar_infos/dependentes.html', dados=dados, proposta=proposta)
+        except sqlite3.Error as e:
+            flash(f'Erro ao consultar a proposta: {e}', 'error')
+            return redirect(url_for('cad.detalhes_cnt', proposta=proposta))
         
 
+@cad_bp.route('/alterar_infos', methods=['POST'])
+@acesso('vendas', 'cadastro', 'administrativo')
+@hierarquia('supervisor','agente','vendedor')
+def alterar_infos():
+    tipo=request.form.get('tipo')
+    proposta= request.form.get('numero_proposta')
+    print(f"Tipo de alteração: {tipo}, Proposta: {proposta}")
+    
+    if tipo == 'venda':
+        nome_responsavel = request.form.get('nome')
+        data_venda = request.form.get('data_venda')
+        tipo_contrato = request.form.get('tipo_contrato')
+        print(f"Tipo de contrato: {tipo_contrato}")
+        tipo_produto = request.form.get('tipo_produto')
+        valor_total = request.form.get('valor_venda')
+        print(valor_total)
+        valor_tabela = request.form.get('valor_tabela')
+        print(valor_tabela)
         
+        update_db("""
+            UPDATE venda SET 
+                nome_responsavel = ?,data_venda = ?, tipo_contrato = ?, tipo_produto = ?, 
+                valor_venda = ?, valor_tabela = ?
+            WHERE numero_proposta = ?
+        """, (nome_responsavel, data_venda, tipo_contrato, tipo_produto, valor_total, valor_tabela, proposta))
+        flash('Informações da venda atualizadas com sucesso!', 'success')
+        return redirect(url_for('cad.detalhes_cnt', proposta=proposta))
+    
+    elif tipo == 'respp':
+        print(f"Alterando informações do responsável para a proposta: {proposta}")
+        nome = request.form.get('nome')
+        cpf = request.form.get('cpf')
+        print(f"CPF do responsável: {cpf}")
+        
+        data_nascimento = request.form.get('data_nascimento')
+        celular = request.form.get('celular')
+        print (celular)
+        estado_civil = request.form.get('estado_civil')        
+        email = request.form.get('email')
+       
+        update_db("""
+            UPDATE responsavel SET 
+                nome = ?, cpf = ?, data_nascimento = ?, 
+                celular = ?, email = ?, estado_civil = ? WHERE proposta_id = ?
+        """, (nome, cpf, data_nascimento, celular, email,estado_civil, proposta ))
+        update_db(""" 
+            UPDATE venda SET nome_responsavel = ? WHERE numero_proposta = ?
+    """, (nome, proposta))
+        flash('Informações da venda atualizadas com sucesso!', 'success')
+        return redirect(url_for('cad.detalhes_cnt', proposta=proposta))
+    
+    elif tipo == 'titular':
+        print(f"Alterando informações do responsável para a proposta: {proposta}")
+        nome = request.form.get('nome')
+        cpf = request.form.get('cpf')
+        print(f"CPF do responsável: {cpf}")
+        
+        data_nascimento = request.form.get('data_nascimento')
+        celular = request.form.get('celular')
+        print (celular)
+        estado_civil = request.form.get('estado_civil')        
+        email = request.form.get('email')
+        nome_mae= request.form.get('nome_mae')
+        idade = request.form.get('idade')
+        nome_pai= request.form.get('nome_pai')
+        sexo = request.form.get('sexo')
+        numero_rg = request.form.get('numero_rg')
+        profissao = request.form.get('profissao')
+       
+        update_db("""
+            UPDATE titulares SET 
+                nome = ?, cpf = ?, data_nascimento = ?, idade =?, celular = ?, email = ?,
+                   estado_civil = ?, nome_mae= ?, nome_pai= ?, sexo=? ,numero_rg=?,
+                   profissao=? WHERE proposta_id = ?
+        """, (nome, cpf, data_nascimento, idade, celular, email, estado_civil, nome_mae, nome_pai, sexo, numero_rg, profissao,proposta ))
+        flash('Informações da venda atualizadas com sucesso!', 'success')
+        return redirect(url_for('cad.detalhes_cnt', proposta=proposta))
+    elif tipo == 'depenn':
+        nome = request.form.get('nome')
+        cpf = request.form.get('cpf')
+        data_nascimento = request.form.get('data_nascimento')
+        grau_parentesco = request.form.get('grau_parentesco')
+        cpf_titular = request.form.get('cpf_titular')
+        nome_mae = request.form.get('nome_mae')
+
+        update_db("""
+            UPDATE dependentes SET 
+                nome = ?, cpf = ?, data_nascimento = ?, 
+                grau_parentesco = ?, cpf_titular = ?, nome_mae = ?
+            WHERE proposta_id = ?
+        """, (nome, cpf, data_nascimento, grau_parentesco, cpf_titular, nome_mae, proposta))
+        flash('Informações da venda atualizadas com sucesso!', 'success')
+        return redirect(url_for('cad.detalhes_cnt', proposta=proposta))
     
 
 @cad_bp.route('/documentos_contrato/<proposta>')

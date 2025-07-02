@@ -1,0 +1,76 @@
+{% extends "base1.html" %}
+{% block title %}Alterar venda{% endblock %}
+{% block content %}
+<style>
+    h1{
+        color: white
+    }
+</style>
+<div class="container-tab-pix">
+    <div class="filter-tab-pix2">
+        <a class="close-btn" href="{{ url_for('cad.alterar_proposta', proposta=proposta) }}" class="close-btn"><<</a>
+    </div>
+    
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/tabpix.css') }}">
+<h1>Alterar Venda #{{ dados[1] }}</h1>
+<form action="{{ url_for('cad.alterar_infos') }}" method="post">
+    
+    <label>Proposta:</label>
+    <input type="text" name="numero_proposta" value="{{ dados[1] }}" readonly>
+    
+    <input type="hidden" name="tipo" value="titular">
+    <br>
+    <label>nome do titular:</label>
+    <input type="text" name="nome" value="{{ dados[2] }}">
+    <br>
+    <label>CPF do Titular:</label>
+    <input type="text" name="cpf" value="{{ dados[3] }}">
+    <br>
+    <label>data de nascimento do responsavel:</label>
+    <input type="text" name="data_nascimento" value="{{ dados[4] }}">
+    <br>
+    <label>idade:</label>
+    <input type="text" name="idade" value="{{ dados[5] }}">
+    <label>CEP:</label>
+    <input type="text" name="cep" value="{{ dados[6] }}">
+    <br>
+    <label>Celular:</label>
+    <input type="text" name="celular" value="{{ dados[7] }}">
+    <br>
+    <label>email:</label>
+    <input type="text" name="email" value="{{ dados[8] }}">
+    <br>
+     <label>estado civil:</label>
+    <select name="estado_civil" id="estado_civil">
+    <option value="solteiro" {% if dados[8] == 'solteiro' %}selected{% endif %}>Solteiro</option>
+    <option value="casado" {% if dados[8] == 'casado' %}selected{% endif %}>Casado</option>
+    <option value="viuvo" {% if dados[8] == 'viuvo' %}selected{% endif %}>Viuvo</option>
+    <option value="divorciado" {% if dados[8] == 'divorciado' %}selected{% endif %}>Divorciado</option>
+    </select>
+    <br>
+    <label>nome da mãe:</label>
+    <input type="text" name="nome_mae" value="{{ dados[10] }}">
+    <br>
+    <label>nome do pai:</label>
+    <input type="text" name="nome_pai" value="{{ dados[11] }}">
+    <br>
+    <label>sexo:</label>
+     <select name="sexo" id="sexo">
+        <option value="masculino" {% if dados[12] == 'masculino' %}selected{% endif %}>Masculino</option>
+        <option value="feminino" {% if dados[12] == 'feminino' %}selected{% endif %}>Feminino</option>
+        
+    </select>
+    <br>
+    <br><label>Nuwmero de RG:</label>
+    <input type="text" name="numero_rg" value="{{ dados[13] }}">
+    <br>
+    <label>profissão:</label>
+    <input type="text" name="profissao" value="{{ dados[14] }}">
+    <br>
+    
+
+    <button type="submit">Salvar</button>
+    </div>
+</form>
+</div> 
+{% endblock %}

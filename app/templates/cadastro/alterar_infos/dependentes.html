@@ -1,0 +1,50 @@
+{% extends "base1.html" %}
+{% block title %}Alterar dependente{% endblock %}
+{% block content %}
+<style>
+    h1{
+        color: white
+    }
+</style>
+<div class="container-tab-pix">
+    <div class="filter-tab-pix2">
+        <a class="close-btn" href="{{ url_for('cad.alterar_proposta', proposta=proposta) }}" class="close-btn"><<</a>
+    </div>
+    
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/tabpix.css') }}">
+<h1>Alterar dependente #{{ dados[1] }}</h1>
+<form action="{{ url_for('cad.alterar_infos') }}" method="post">
+    
+    <label>Proposta:</label>
+    <input type="text" name="numero_proposta" value="{{ dados[1] }}" readonly>
+    
+    <input type="hidden" name="tipo" value="depenn">
+    <br>
+    <label>nome do dependente:</label>
+    <input type="text" name="nome" value="{{ dados[2] }}">
+    <br>
+    <label>CPF do dependente:</label>
+    <input type="text" name="cpf" value="{{ dados[3] }}">
+    <br>
+    <label>data de nascimento do dependente:</label>
+    <input type="text" name="data_nascimento" value="{{ dados[4] }}">
+    <label>Grau de parentesco:</label>
+    <select name="grau_parentesco" id="grau_parentesco">
+        <option value="filho(a)" {% if dados[8] == 'filho(a)' %}selected{% endif %}>FIlho(a)</option>
+        <option value="conjuge" {% if dados[8] == 'conjuge' %}selected{% endif %}>conjuge</option>
+        <option value="pai" {% if dados[8] == 'pai' %}selected{% endif %}>Pai</option>
+        <option value="mae" {% if dados[8] == 'mae' %}selected{% endif %}>Mãe</option>
+        <option value="outro" {% if dados[8] == 'outro' %}selected{% endif %}>Outro</option>
+    </select>
+    <br>
+    <label>CPF do Titular:</label>
+    <input type="text" name="cpf_titular" value="{{ dados[6] }}">
+    <br>
+    <label>Nome da mãe:</label>
+    <input type="text" name="nome_mae" value="{{ dados[7] }}">
+    <br>
+   <button type="submit">Salvar</button>
+    </div>
+</form>
+</div> 
+{% endblock %}

@@ -22,6 +22,36 @@ def query_db(query, args=(), one=False, database_path=None):
     conn.close()
     return (rv[0] if rv else None) if one else rv
 
+def alter_db(query, args=(), database_path=None):
+    """
+    Executa uma alteração no banco de dados (INSERT, UPDATE, DELETE).
+    """
+    conn = get_db_connection(database_path)
+    cur = conn.cursor()
+    try:
+        cur.execute(query, args)
+        conn.commit()
+    except sqlite3.Error as e:
+        conn.rollback()
+        raise e
+    finally:
+        conn.close()
+
+def update_db(query, args=(), database_path=None):
+    """
+    Executa uma atualização no banco de dados.
+    """
+    conn = get_db_connection(database_path)
+    cur = conn.cursor()
+    try:
+        cur.execute(query, args)
+        conn.commit()
+    except sqlite3.Error as e:
+        conn.rollback()
+        raise e
+    finally:
+        conn.close()
+
 def salvar_venda(venda, responsavel, titular, dependentes, database_path=None):
     """
     Salva os dados da venda, responsável, titular e dependentes no banco de dados.
