@@ -104,7 +104,7 @@
                     <p><strong>Valor Total:</strong> R$ {{ row[8] }}</p>
                     <br><br>
                     
-                    <a class="btn" href="{{ url_for('cad.detalhes_cnt', proposta=row[1], contrato=row[13], id = row[0]) }}">detalhes da venda</a>
+                    <a class="btn" href="{{ url_for('cad.detalhes_cnt', proposta=row[1], contrato=row[13]) }}">detalhes da venda</a>
                 </div>
             </div>
             {% endfor %}

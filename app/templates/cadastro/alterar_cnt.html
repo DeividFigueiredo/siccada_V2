@@ -37,24 +37,20 @@
                         <option value="" disabled selected>selecione</option>
                         
                         {% if area == 'cadastro' %}
-                        <option value="enviado para Declaração de Saúde">enviado para Declaração de saúde</option>
-                        <option value="declaração online enviada">entrevista online enviada</option>
+                        <option value="entrevista online enviada">entrevista online enviada</option>
                         <option value="analise de declaração">Enviar para analise</option>
                         
-                        <option value="entrevista realizada">entrevista realizada</option>
-                        <option value="enviado para financeiro">enviado para o financeiro</option>
-                            {% if last_resp == 'financeiro'  %}
-                                <option value="contrato finalizado">contrato finalizado</option>
-                            {% endif %}
+                           
                         {% elif area == 'financeiro' %}
                         <option value="boleto emitido">boleto emitido</option>
                         <option value="confexão de kit">enviado para confexão de kit</option>
                         {% elif area == 'administrativo' %}
-                        <option value="entrevista online enviada">entrevista marcada</option>
-                        <option value="entrevista aprovada">entrevista Aprovada</option>
                         <option value="entrevista agendada">entrevista Agendada</option>
-                        <option value="entrevista presencial aprovada">entrevista presencial aprovada</option>
-                        <option value="enviado ao cadastro">enviar ao cadastro</option>
+                        <option value="geração de kit">gerar kit</option>
+                         {% if last_resp == 'administrativo'  %}
+                                <option value="contrato finalizado">contrato finalizado</option>
+                            {% endif %}
+
 
                         {% else %}
                         <option value="status indefinido">Status indefinido</option>

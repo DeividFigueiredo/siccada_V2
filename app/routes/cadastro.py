@@ -77,7 +77,7 @@ def acompanhar_cnt():
             return render_template('cadastro/acompanhar_cnt.html', result=result, resp=resp)
         elif tipo_usuario == 'cadastro':
             print(f"Tipo de usuário: {tipo_usuario}")
-            query = "SELECT * FROM venda WHERE status = 'Enviado ao cadastro' OR status = 'enviado para Declaração de Saúde' OR status = 'entrevista online enviada'" 
+            query = "SELECT * FROM venda WHERE status = 'Enviado ao cadastro' OR status = 'entrevista online enviada'" 
             result = query_db(query)
             if result is None:
                return render_template('cadastro/sem_registro.html ', result=result, resp=resp)
@@ -89,7 +89,7 @@ def acompanhar_cnt():
             return render_template('cadastro/acompanhar_cnt.html', result=result, resp=resp)
         elif tipo_usuario == 'administrativo':
             print(f"Tipo de usuário: {tipo_usuario}")
-            query = "SELECT * FROM venda WHERE status ='enviado para entrevista' OR status = 'analise de declaração'OR status= 'entrevista agendada'"
+            query = "SELECT * FROM venda WHERE status ='entrevista agendada' OR status = 'analise de declaração'OR status= 'geração de kit' OR status = 'Enviado ao cadastro'"
             result = query_db(query)
 
             return render_template('cadastro/acompanhar_cnt.html', result=result, resp=resp)
@@ -101,9 +101,7 @@ def detalhes_cnt():
     id = request.args.get('proposta')
     print(f"ID recebido: {id}")
 
-    if id is None:
-        return "ID não fornecido", 400
-
+      
     conn = sqlite3.connect(current_app.config['DATABASE'])
     cur = conn.cursor()
 
@@ -179,7 +177,7 @@ def atualizar_cnt():
 
 
 @cad_bp.route('/adicionar_cnt', methods=['GET','POST'])
-@acesso('cadastro')
+@acesso('cadastro','administrativo')
 @hierarquia('supervisor','agente')
 def adicionar_cnt():
     id =request.args.get('id')
