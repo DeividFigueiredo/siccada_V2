@@ -50,7 +50,12 @@
     <input type="text" name="nome_pai" value="{{ dados[11] }}">
     <br>
     <label>sexo:</label>
-    <input type="text" name="sexo" value="{{ dados[12] }}">
+     <select name="sexo" id="sexo">
+        <option value="masculino" {% if dados[12] == 'masculino' %}selected{% endif %}>Masculino</option>
+        <option value="feminino" {% if dados[12] == 'feminino' %}selected{% endif %}>Feminino</option>
+        
+    </select>
+    <br>
     <br><label>Nuwmero de RG:</label>
     <input type="text" name="numero_rg" value="{{ dados[13] }}">
     <br>

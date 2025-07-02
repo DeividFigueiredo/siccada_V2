@@ -31,10 +31,8 @@
     <br>
     <label>produto:</label>
     <select name="tipo_produto" id="tipo_produto">
-        <option value="{{dados[4]}}">{{dados[4]}}</option>
-        <option value="Amacor Exclusivo 2">Amacor Exclusivo 2</option>
-        <option value="Amacor Exclusivo 1">Amacor Exclusivo 1</option>
-        <option value="Amacor Classico EMP">Amacor Classico Empresarial</option>
+        <option value="Amacor Exclusivo 1" {% if dados[4] == 'Amacor Exclusivo 1' %}selected{% endif %}>AMACOR EXCLUSIVO 1</option>
+        <option value="Amacor Exclusivo 2" {% if dados[4] == 'Amacor Exclusivo 2' %}selected{% endif %}>AMACOR EXCLUSIVO 2</option>
     </select>
     <br>
     <label>Corretor:</label>

@@ -350,6 +350,7 @@ def alterar_infos():
     print(f"Tipo de alteração: {tipo}, Proposta: {proposta}")
     
     if tipo == 'venda':
+        nome_responsavel = request.form.get('nome')
         data_venda = request.form.get('data_venda')
         tipo_contrato = request.form.get('tipo_contrato')
         print(f"Tipo de contrato: {tipo_contrato}")
@@ -358,13 +359,13 @@ def alterar_infos():
         print(valor_total)
         valor_tabela = request.form.get('valor_tabela')
         print(valor_tabela)
-        responsavel = request.form.get('responsavel')
+        
         update_db("""
             UPDATE venda SET 
-                data_venda = ?, tipo_contrato = ?, tipo_produto = ?, 
-                valor_venda = ?, valor_tabela = ?, nome_responsavel = ?
+                nome_responsavel = ?,data_venda = ?, tipo_contrato = ?, tipo_produto = ?, 
+                valor_venda = ?, valor_tabela = ?
             WHERE numero_proposta = ?
-        """, (data_venda, tipo_contrato, tipo_produto, valor_total, valor_tabela, responsavel, proposta))
+        """, (nome_responsavel, data_venda, tipo_contrato, tipo_produto, valor_total, valor_tabela, proposta))
         flash('Informações da venda atualizadas com sucesso!', 'success')
         return redirect(url_for('cad.detalhes_cnt', proposta=proposta))
     
@@ -385,6 +386,9 @@ def alterar_infos():
                 nome = ?, cpf = ?, data_nascimento = ?, 
                 celular = ?, email = ?, estado_civil = ? WHERE proposta_id = ?
         """, (nome, cpf, data_nascimento, celular, email,estado_civil, proposta ))
+        update_db(""" 
+            UPDATE venda SET nome_responsavel = ? WHERE numero_proposta = ?
+    """, (nome, proposta))
         flash('Informações da venda atualizadas com sucesso!', 'success')
         return redirect(url_for('cad.detalhes_cnt', proposta=proposta))
     
