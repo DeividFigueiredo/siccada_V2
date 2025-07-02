@@ -10,34 +10,13 @@
     </div>
 
     <h1 class="table-title-tab-pix">Editar Contrato</h1>
-
-    <form method="POST" action="{{ url_for('cad.alterar_proposta', id=registro[0]) }}">
-        <div class="section-tab-pix">
-            <h2>Proposta</h2>
-            <label><strong>Proposta:</strong>
-                <input type="text" name="proposta" value="{{ registro[1] }}" readonly>
-            </label><br>
-            <label><strong>Contrato:</strong>
-                <input type="text" name="contrato" value="{{ registro[13] }}" readonly>
-            </label><br>
-            <label><strong>Data:</strong>
-                <input type="date" name="data" value="{{ registro[2]|replace('/', '-') }}">
-            </label><br>
-            <label><strong>Tipo de Contrato:</strong>
-                <input type="text" name="tipo_contrato" value="{{ registro[3] }}">
-            </label><br>
-            <label><strong>Produto:</strong>
-                <input type="text" name="produto" value="{{ registro[4] }}">
-            </label><br>
-            <label><strong>Corretor Responsável:</strong>
-                <input type="text" name="corretor" value="{{ registro[5] }}">
-            </label><br>
-            <label><strong>Status:</strong>
-                <input type="text" name="status" value="{{ registro[6] }}">
-            </label><br>
-            <button type="submit">Salvar alterações</button>
-        </div>
-    </form>
+        <a href=" {{ url_for('cad.alterar_infos_proposta', proposta=proposta,tp_alt='venda') }} ">alterar vendas</a>
+        <br>
+        <a href=" {{ url_for('cad.alterar_infos_proposta', proposta=proposta,tp_alt='respp') }} ">alterar responsavel</a>
+        <br>
+        <a href=" {{ url_for('cad.alterar_infos_proposta', proposta=proposta,tp_alt='titular') }} ">alterar titular</a>
+        <br>
+        <a href=" {{ url_for('cad.alterar_infos_proposta', proposta=proposta,tp_alt='depenn') }} ">alterar dependentes</a>
 </div>
 
 <script>
