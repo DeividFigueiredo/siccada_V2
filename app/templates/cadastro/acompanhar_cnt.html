@@ -94,11 +94,13 @@
     {% if result %}
         <div class="cards-container">
             {% for row in result %}
-            {% set status = row[19]|lower %}
-            {% if '0' in status %}
+            {% set status_doc = row[19]|string %}
+            {% set status = row[6]|lower %}
+            
+            {% if 'Enviado ao cadastro' in status and '0' in status_doc %}
                 {% set status_class = 'status-laranja' %}
-            {% elif 'com documento' in status %}
-                {% set status_class = 'status-amarelo' %}
+            {% elif 'Enviado ao cadastro' in status %}
+                {% set status_class = 'status-verde' %}
             {% elif 'aguardando entrevista online' in status %}
                 {% set status_class = 'status-verde' %}
             {% elif 'entrevista online enviada' in status %}
@@ -113,6 +115,10 @@
                 {% set status_class = 'status-vermelho' %}
             {% elif 'boleto emitido' in status %}
                 {% set status_class = 'status-rosa' %}
+            {% elif status_doc == '0' %}
+                {% set status_class = 'status-laranja' %}
+            {% elif status_doc == '1' %}
+                {% set status_class = 'status-amarelo' %}
             {% else %}
                 {% set status_class = '' %}
             {% endif %}
