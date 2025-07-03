@@ -345,7 +345,7 @@ def alterar_infos():
     print(f"Tipo de alteração: {tipo}, Proposta: {proposta}")
     
     if tipo == 'venda':
-        nome_responsavel = request.form.get('nome')
+        nome_responsavel = request.form.get('nome_responsavel')
         data_venda = request.form.get('data_venda')
         tipo_contrato = request.form.get('tipo_contrato')
         print(f"Tipo de contrato: {tipo_contrato}")
