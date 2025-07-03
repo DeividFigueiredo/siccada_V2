@@ -7,6 +7,7 @@ from .routes.generic import generic_bp
 from .routes.financeiro import finan_bp
 from .routes.cadastro import cad_bp
 from .routes.doc_gen import docgen_bp
+from .routes.gerencial import gerencial_bp
 
 from datetime import timedelta
 import os
@@ -32,6 +33,7 @@ def create_app():
     app.register_blueprint(finan_bp,url_prefix= '/finan')
     app.register_blueprint(cad_bp,url_prefix='/cad')
     app.register_blueprint(docgen_bp, url_prefix='/docgen')
+    app.register_blueprint(gerencial_bp, url_prefix='/gerencial')
 
     # Verifique se a pasta de upload existe
     if not os.path.exists(app.config['UPLOAD_FOLDER']):
