@@ -57,10 +57,7 @@ def acompanhar_cnt():
                 return render_template('cadastro/definir.html')
             
     elif venda_final and venda_inicial:      
-        venda_convert_init= datetime.strptime(venda_inicial, '%Y-%m-%d').date()
-        venda_convert_final= datetime.strptime(venda_final, '%Y-%m-%d').date()
-        venda_inicial = venda_convert_init.strftime('%d/%m/%Y')
-        venda_final = venda_convert_final.strftime('%d/%m/%Y')
+        
         print(f"Venda inicial: {venda_inicial}, Venda final: {venda_final}")
         cur.execute("SELECT * FROM venda WHERE data_venda BETWEEN ? AND ?", (venda_inicial, venda_final))
         result = cur.fetchall()
