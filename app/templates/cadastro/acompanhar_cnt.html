@@ -79,14 +79,45 @@
             color: #ffffff;
             font-size: 18px;
         }
+        .status-laranja         { background-color: #ffe5b4; color: #b36b00; }  /* Laranja pastel */
+        .status-amarelo         { background-color: #fff9b0; color: #b3a100; }  /* Amarelo pastel */
+        .status-verde           { background-color: #c6f5e0; color: #259661; }  /* Verde pastel */
+        .status-verde-escuro    { background-color: #a3e4c1; color: #1b5e20; }  /* Verde mais escuro */
+        .status-verde-medio     { background-color: #b2f2d7; color: #218c5a; }  /* Verde médio */
+        .status-azulclaro       { background-color: #cbe7ff; color: #2176ae; }  /* Azul claro pastel */
+        .status-azulescuro      { background-color: #b0c4ff; color: #1a237e; }  /* Azul escuro pastel */
+        .status-vermelho        { background-color: #ffd6d6; color: #b71c1c; }  /* Vermelho claro pastel */
+        .status-rosa            { background-color: #ffe0f0; color: #ad1457; }  /* Rosa pastel */
     </style>
 </head>
 <body>
     {% if result %}
         <div class="cards-container">
             {% for row in result %}
+            {% set status = row[19]|lower %}
+            {% if '0' in status %}
+                {% set status_class = 'status-laranja' %}
+            {% elif 'com documento' in status %}
+                {% set status_class = 'status-amarelo' %}
+            {% elif 'aguardando entrevista online' in status %}
+                {% set status_class = 'status-verde' %}
+            {% elif 'entrevista online enviada' in status %}
+                {% set status_class = 'status-verde-escuro' %}
+            {% elif 'enviado para analise' in status %}
+                {% set status_class = 'status-verde-medio' %}
+            {% elif 'entrevista agendada' in status %}
+                {% set status_class = 'status-azulclaro' %}
+            {% elif 'geração de kit' in status %}
+                {% set status_class = 'status-azulescuro' %}
+            {% elif 'enviado para financeiro' in status %}
+                {% set status_class = 'status-vermelho' %}
+            {% elif 'boleto emitido' in status %}
+                {% set status_class = 'status-rosa' %}
+            {% else %}
+                {% set status_class = '' %}
+            {% endif %}
             <div class="card">
-                <div class="card-header" onclick="toggleDetails(this)">
+                <div class="card-header {{ status_class }}" onclick="toggleDetails(this)">
                     Proposta #{{ row[1] }}
                 </div>
                 <div class="card-body" onclick="toggleDetails(this)">
@@ -103,7 +134,6 @@
                     <p><strong>Taxa de Inscrição:</strong> R$ {{ row[10] }}</p>
                     <p><strong>Valor Total:</strong> R$ {{ row[8] }}</p>
                     <br><br>
-                    
                     <a class="btn" href="{{ url_for('cad.detalhes_cnt', proposta=row[1], contrato=row[13]) }}">detalhes da venda</a>
                 </div>
             </div>

@@ -244,6 +244,9 @@ def adicionar_doc():
                 ext = arquivo.filename.rsplit('.', 1)[1].lower()
                 filename = f"proposta {proposta}.{ext}"
                 arquivo.save(os.path.join(proposta_folder, filename))
+                update_db("""
+                    UPDATE venda SET documento_enviado = 1 WHERE numero_proposta = ?
+                """, (proposta,))
             else:
                 flash('Tipo de arquivo não permitido.')
                 return redirect(request.url)
