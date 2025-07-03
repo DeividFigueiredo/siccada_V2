@@ -1,0 +1,84 @@
+{% extends "base1.html" %}
+{% block title %}Dashboard Gerencial{% endblock %}
+{% block content %}
+<h1>Dashboard Gerente de Vendas</h1>
+
+<div style="display: flex; gap: 30px; justify-content: center; margin-bottom: 30px;">
+    <div style="background: #259661a6; padding: 20px; border-radius: 10px;">
+        <canvas id="graficoTipoPlano" width="250" height="200"></canvas>
+        <div style="text-align:center;">Gráfico de vendas por tipo de plano</div>
+    </div>
+    <div style="background: #259661a6; padding: 20px; border-radius: 10px;">
+        <canvas id="graficoCorretor" width="250" height="200"></canvas>
+        <div style="text-align:center;">Vendas por corretor</div>
+    </div>
+    <div style="background: #259661a6; padding: 20px; border-radius: 10px;">
+        <canvas id="graficoEvolucao" width="250" height="200"></canvas>
+        <div style="text-align:center;">Evolução de vendas</div>
+    </div>
+</div>
+
+<div style="background: #259661a6; padding: 20px; border-radius: 10px; margin: 0 auto; width: 80%;">
+    <h3>Últimas vendas e contratos</h3>
+    <table border="1" width="100%">
+        <tr>
+            <th>Proposta</th>
+            <th>Data</th>
+            <th>Corretor</th>
+            <th>Produto</th>
+            <th>Valor</th>
+        </tr>
+        {% for venda in ultimas_vendas %}
+        <tr>
+            <td>{{ venda[1] }}</td>
+            <td>{{ venda[2] }}</td>
+            <td>{{ venda[5] }}</td>
+            <td>{{ venda[4] }}</td>
+            <td>R$ {{ venda[8] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+const ctxTipoPlano = document.getElementById('graficoTipoPlano').getContext('2d');
+new Chart(ctxTipoPlano, {
+    type: 'pie',
+    data: {
+        labels: {{ labels_tipo_plano|tojson }},
+        datasets: [{
+            data: {{ valores_tipo_plano|tojson }},
+            backgroundColor: ['#36a2eb', '#ff6384', '#ffcd56']
+        }]
+    }
+});
+
+const ctxCorretor = document.getElementById('graficoCorretor').getContext('2d');
+new Chart(ctxCorretor, {
+    type: 'bar',
+    data: {
+        labels: {{ labels_corretor|tojson }},
+        datasets: [{
+            label: 'Vendas',
+            data: {{ valores_corretor|tojson }},
+            backgroundColor: '#36a2eb'
+        }]
+    }
+});
+
+const ctxEvolucao = document.getElementById('graficoEvolucao').getContext('2d');
+new Chart(ctxEvolucao, {
+    type: 'line',
+    data: {
+        labels: {{ labels_evolucao|tojson }},
+        datasets: [{
+            label: 'Evolução de vendas',
+            data: {{ valores_evolucao|tojson }},
+            borderColor: '#ff6384',
+            fill: false
+        }]
+    }
+});
+</script>
+{% endblock %}

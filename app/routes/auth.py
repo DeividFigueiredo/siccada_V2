@@ -33,7 +33,7 @@ def login():
             classe_usuario= session.get('classe_usuario')
             session.permanent = True
             print (classe_usuario)
-            return redirect(url_for('generic.home'))
+            return redirect(url_for('auth.login_redir'))
 
         # Verifica se o usuário foi encontrado
         else:
@@ -167,7 +167,7 @@ def login_redir():
         if classe_usuario == 'vendedor':
             return redirect(url_for('generic.home'))
         elif classe_usuario == 'supervisor':
-            return redirect(url_for('gerencial.home'))
+            return redirect(url_for('gerencial.dashboard'))
     elif tipo_usuario == 'cadastro':
         return redirect(url_for('generic.home'))
     elif tipo_usuario == 'administrativo':
