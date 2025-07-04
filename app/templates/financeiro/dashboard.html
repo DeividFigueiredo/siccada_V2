@@ -1,0 +1,90 @@
+{% extends "base1.html" %}
+{% block title %}Dashboard Financeiro{% endblock %}
+{% block content %}
+
+<br><br>
+
+
+<h1>Dashboard Financeiro</h1>
+
+<div style="display: flex; gap: 30px; justify-content: center; margin-bottom: 30px;">
+    <div style="background: #259661a6; padding: 20px; border-radius: 10px;">
+        <canvas id="graficoStatus" width="250" height="200"></canvas>
+        <div style="text-align:center;">Pagamentos por status</div>
+    </div>
+    <div style="background: #259661a6; padding: 20px; border-radius: 10px;">
+        <canvas id="graficoMes" width="250" height="200"></canvas>
+        <div style="text-align:center;">Valores recebidos por mês</div>
+    </div>
+    <div style="background: #259661a6; padding: 20px; border-radius: 10px;">
+        <canvas id="graficoMetodo" width="250" height="200"></canvas>
+        <div style="text-align:center;">Pagamentos por método</div>
+    </div>
+</div>
+
+<div style="background: #259661a6; padding: 20px; border-radius: 10px; margin: 0 auto; width: 80%;">
+    <h3>Últimos pagamentos</h3>
+    <table border="1" width="100%">
+        <tr>
+            <th>ID</th>
+            <th>Contrato</th>
+            <th>Responsável</th>
+            <th>Valor</th>
+            <th>Data</th>
+            <th>Status</th>
+            <th>Método</th>
+        </tr>
+        {% for p in ultimos_pagamentos %}
+        <tr>
+            <td>{{ p[0] }}</td>
+            <td>{{ p[2] }}</td>
+            <td>{{ p[3] }}</td>
+            <td>R$ {{ p[4] }}</td>
+            <td>{{ p[5] }}</td>
+            <td>{{ p[8] }}</td>
+            <td>{{ p[6] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+const ctxStatus = document.getElementById('graficoStatus').getContext('2d');
+new Chart(ctxStatus, {
+    type: 'pie',
+    data: {
+        labels: {{ labels_status|tojson }},
+        datasets: [{
+            data: {{ valores_status|tojson }},
+            backgroundColor: ['#36a2eb', '#ff6384', '#ffcd56', '#259661']
+        }]
+    }
+});
+
+const ctxMes = document.getElementById('graficoMes').getContext('2d');
+new Chart(ctxMes, {
+    type: 'bar',
+    data: {
+        labels: {{ labels_mes|tojson }},
+        datasets: [{
+            label: 'Recebido',
+            data: {{ valores_mes|tojson }},
+            backgroundColor: '#36a2eb'
+        }]
+    }
+});
+
+const ctxMetodo = document.getElementById('graficoMetodo').getContext('2d');
+new Chart(ctxMetodo, {
+    type: 'doughnut',
+    data: {
+        labels: {{ labels_metodo|tojson }},
+        datasets: [{
+            data: {{ valores_metodo|tojson }},
+            backgroundColor: ['#ffcd56', '#36a2eb', '#ff6384', '#259661']
+        }]
+    }
+});
+</script>
+{% endblock %}

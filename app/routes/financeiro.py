@@ -27,10 +27,37 @@ finan_bp = Blueprint('finan', __name__)
 
 @finan_bp.route('/')
 
-def home():
+@finan_bp.route('/dashboard')
+def dashboard():
+    # Pagamentos por status
+    dados_status = query_db("SELECT status, COUNT(*) FROM pagamentos GROUP BY status")
+    labels_status = [row[0] for row in dados_status]
+    valores_status = [row[1] for row in dados_status]
 
-    return render_template('financeiro/home_f.html')
+    # Valores recebidos por mês
+    dados_mes = query_db("SELECT strftime('%Y-%m', data_pagamento), SUM(valor) FROM pagamentos WHERE status='efetuado' GROUP BY 1 ORDER BY 1")
+    labels_mes = [row[0] for row in dados_mes]
+    valores_mes = [row[1] for row in dados_mes]
+    print (valores_mes)
 
+    # Métodos de pagamento
+    dados_metodo = query_db("SELECT metodo_pagamento, COUNT(*) FROM pagamentos GROUP BY metodo_pagamento")
+    labels_metodo = [row[0] for row in dados_metodo]
+    valores_metodo = [row[1] for row in dados_metodo]
+
+    # Últimos pagamentos
+    ultimos_pagamentos = query_db("SELECT * FROM pagamentos ORDER BY data_pagamento DESC LIMIT 10")
+
+    return render_template(
+        'financeiro/dashboard.html',
+        labels_status=labels_status,
+        valores_status=valores_status,
+        labels_mes=labels_mes,
+        valores_mes=valores_mes,
+        labels_metodo=labels_metodo,
+        valores_metodo=valores_metodo,
+        ultimos_pagamentos=ultimos_pagamentos
+    )
 
 ##rota para inserir dados de pagamento no banco
 @finan_bp.route('/pix', methods=['GET','POST'])
