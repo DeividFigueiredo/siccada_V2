@@ -14,11 +14,11 @@
     </div>
     <div style="background: #259661a6; padding: 20px; border-radius: 10px;">
         <canvas id="graficoMes" width="250" height="200"></canvas>
-        <div style="text-align:center;">Valores recebidos por mês</div>
+        <div style="text-align:center;">Valores em aberto por mês</div>
     </div>
     <div style="background: #259661a6; padding: 20px; border-radius: 10px;">
-        <canvas id="graficoMetodo" width="250" height="200"></canvas>
-        <div style="text-align:center;">Pagamentos por método</div>
+        <canvas id="graficoValorFechado" width="250" height="200"></canvas>
+        <div style="text-align:center;">Valores recebidos por mês</div>
     </div>
 </div>
 
@@ -75,13 +75,13 @@ new Chart(ctxMes, {
     }
 });
 
-const ctxMetodo = document.getElementById('graficoMetodo').getContext('2d');
+const ctxMetodo = document.getElementById('graficoValorFechado').getContext('2d');
 new Chart(ctxMetodo, {
-    type: 'doughnut',
+    type: 'bar',
     data: {
-        labels: {{ labels_metodo|tojson }},
+        labels: {{ labels_mes_fechado|tojson }},
         datasets: [{
-            data: {{ valores_metodo|tojson }},
+            data: {{ valores_mes_fechado|tojson }},
             backgroundColor: ['#ffcd56', '#36a2eb', '#ff6384', '#259661']
         }]
     }
