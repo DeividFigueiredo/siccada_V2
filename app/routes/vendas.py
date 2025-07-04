@@ -148,14 +148,6 @@ def venda_form():
         venda['iss'] = valor_iss
         print(f"Valor base após ISS: {valor_base}")
 
-        # Ajusta formato da data_venda para DD/MM/YYYY se vier preenchida
-        if venda["data_venda"]:
-            try:
-                venda["data_venda"] = datetime.strptime(venda["data_venda"], "%Y-%m-%d").strftime("%d/%m/%Y")
-            except Exception:
-                pass
-        # ...existing code...
-
 
         # Dados do responsável
         responsavel = {
@@ -167,7 +159,7 @@ def venda_form():
             "email": request.form.get('email_responsavel'),
             "estado_civil": request.form.get('estado_cv_responsavel')
         }
-        responsavel["data_nascimento"] = datetime.strptime(responsavel["data_nascimento"], "%Y-%m-%d").strftime("%d/%m/%Y")
+        
         
 
         # Dados do titular
@@ -185,7 +177,7 @@ def venda_form():
             "sexo": request.form.get('sexo_beneficiario'),
             "quantidade_titular" : 1
         }
-        titular["data_nascimento"] = datetime.strptime(titular["data_nascimento"], "%Y-%m-%d").strftime("%d/%m/%Y")
+        
 
         # Dados dos dependentes
         quantidade_dependentes = int(request.form.get('quantidade_dependentes', 0))

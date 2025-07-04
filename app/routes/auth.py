@@ -173,7 +173,7 @@ def login_redir():
     elif tipo_usuario == 'administrativo':
         return redirect(url_for('generic.home'))
     elif tipo_usuario == 'financeiro':
-        return redirect(url_for('financeiro.home'))
+        return redirect(url_for('generic.home'))
     
     else:
         flash('Tipo de usuário inválido.')
