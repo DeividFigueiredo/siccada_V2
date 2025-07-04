@@ -111,6 +111,8 @@
                 {% set status_class = 'status-azulclaro' %}
             {% elif 'geração de kit' in status %}
                 {% set status_class = 'status-azulescuro' %}
+            {% elif 'contrato finalizado' in status %}
+                {% set status_class = 'status-azulescuro' %}
             {% elif 'enviado para financeiro' in status %}
                 {% set status_class = 'status-vermelho' %}
             {% elif 'boleto emitido' in status %}
