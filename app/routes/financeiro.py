@@ -34,11 +34,20 @@ def dashboard():
     labels_status = [row[0] for row in dados_status]
     valores_status = [row[1] for row in dados_status]
 
-    # Valores recebidos por mês
+    # Valores recebidos por mês aberto
     dados_mes = query_db("SELECT strftime('%Y-%m', data_pagamento), SUM(valor) FROM pagamentos WHERE status='efetuado' GROUP BY 1 ORDER BY 1")
     labels_mes = [row[0] for row in dados_mes]
     valores_mes = [row[1] for row in dados_mes]
     print (valores_mes)
+    print (labels_mes)
+
+    #valores recebidos por mes fechado
+    dados_mes_fechado = query_db("SELECT strftime('%Y-%m', data_pagamento), SUM(valor) FROM pagamentos WHERE status='baixado' GROUP BY 1 ORDER BY 1")
+    labels_mes_fechado = [row[0] for row in dados_mes_fechado]
+    valores_mes_fechado = [row[1] for row in dados_mes_fechado]
+    print (valores_mes_fechado)
+    print (labels_mes)
+
 
     # Métodos de pagamento
     dados_metodo = query_db("SELECT metodo_pagamento, COUNT(*) FROM pagamentos GROUP BY metodo_pagamento")
@@ -46,7 +55,7 @@ def dashboard():
     valores_metodo = [row[1] for row in dados_metodo]
 
     # Últimos pagamentos
-    ultimos_pagamentos = query_db("SELECT * FROM pagamentos ORDER BY data_pagamento DESC LIMIT 10")
+    ultimos_pagamentos = query_db("SELECT * FROM pagamentos ORDER BY data_pagamento DESC LIMIT 5")
 
     return render_template(
         'financeiro/dashboard.html',
@@ -54,6 +63,8 @@ def dashboard():
         valores_status=valores_status,
         labels_mes=labels_mes,
         valores_mes=valores_mes,
+        labels_mes_fechado=labels_mes_fechado,
+        valores_mes_fechado=valores_mes_fechado,
         labels_metodo=labels_metodo,
         valores_metodo=valores_metodo,
         ultimos_pagamentos=ultimos_pagamentos
